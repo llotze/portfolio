@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useScrollTo } from '../hooks/useScrollTo'
 
-export default function Navigation() {  const [navTop, setNavTop] = useState('37.25vh')
+export default function Navigation() {
+  const [navTop, setNavTop] = useState('37.25vh')
   const [showName, setShowName] = useState(false)
   const [showTopbarName, setShowTopbarName] = useState(false)
   const [typedName, setTypedName] = useState('')
@@ -23,6 +24,7 @@ export default function Navigation() {  const [navTop, setNavTop] = useState('37
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
   // Typing animation effect
   useEffect(() => {
     let typingTimeout
@@ -40,6 +42,7 @@ export default function Navigation() {  const [navTop, setNavTop] = useState('37
     }
     return () => clearTimeout(typingTimeout)
   }, [showName, showTopbarName, typedName, fullName, isTopbar])
+
   useEffect(() => {
     function handleScroll() {
       if (!navRef.current) return
@@ -112,7 +115,8 @@ export default function Navigation() {  const [navTop, setNavTop] = useState('37
     { label: 'Contact', id: 'contact' },
   ]
 
-  return (    <nav
+  return (
+    <nav
       ref={navRef}
       className={
         isTopbar
@@ -124,10 +128,11 @@ export default function Navigation() {  const [navTop, setNavTop] = useState('37
           ? { top: '1rem', transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)', minWidth: 'max-content' }
           : { top: navTop, transition: 'top 0.2s cubic-bezier(0.4,0,0.2,1)' }
       }
-    >      {/* Name shows for sidebar mode (desktop) and topbar when hero name is scrolled past */}
+    >
+      {/* Name shows for sidebar mode (desktop) and topbar when hero name is scrolled past */}
       {((isTopbar && showTopbarName) || (!isTopbar)) && (
         <span
-          className={`font-bold min-h-[28px] select-none whitespace-nowrap ${isTopbar ? 'text-lg text-gray-900 dark:text-gray-100' : 'text-xl text-gray-900 dark:text-gray-100'}`}
+          className={`font-semibold min-h-[28px] select-none whitespace-nowrap accent ${isTopbar ? 'text-lg' : 'text-xl'}`}
           aria-label="Lucas Lotze"
           style={{
             opacity: typedName.length > 0 ? 1 : 0,

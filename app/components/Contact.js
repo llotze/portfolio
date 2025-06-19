@@ -117,12 +117,6 @@ export default function Contact() {
                 Send Message
               </button>
             </form>
-            
-            <div className="mt-6 p-4 border border-yellow-200 rounded-lg">
-              <p className="text-yellow-800 text-sm">
-                💡 <strong>Tip:</strong> You can also reach me directly at llotze@bu.edu for faster responses!
-              </p>
-            </div>
           </div>
         </div>
         

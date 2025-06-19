@@ -2,7 +2,7 @@
 import { useCallback } from 'react'
 
 export const useScrollTo = () => {
-  const scrollToSection = useCallback((sectionId, offset = 80) => {
+  const scrollToSection = useCallback((sectionId, offset = 20) => {
     const element = document.getElementById(sectionId)
     if (!element) return
 

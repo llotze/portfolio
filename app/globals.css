@@ -4,9 +4,9 @@
   --foreground-light: #18181b;
   --foreground-dark: #f4f4f5;
   --background-light: #fff;
-  --background-dark: #161617;
+  --background-dark: #161616;
   --card-light: #fff;
-  --card-dark: #232329;
+  --card-dark: #1b1b1b;
   --border-light: #e5e7eb;
   --border-dark: #26272b;
   --accent: #3b82f6;
@@ -30,7 +30,7 @@ body {
 .card {
   background: var(--card-light);
   border: 1px solid var(--border-light);
-  border-radius: 1rem;
+  border-radius: 0.4rem;
   box-shadow: none;
   transition: background 0.2s, border 0.2s;
 }
