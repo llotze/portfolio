@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-light: #18181b;
+  --foreground-dark: #f4f4f5;
+  --background-light: #fff;
+  --background-dark: #161617;
+  --card-light: #fff;
+  --card-dark: #232329;
+  --border-light: #e5e7eb;
+  --border-dark: #26272b;
+  --accent: #3b82f6;
+}
+
+body {
+  color: var(--foreground-light);
+  background: var(--background-light) !important;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--foreground-dark);
+    background: var(--background-dark) !important;
+  }
+}
+
+/* Utility classes for cards and borders */
+.card {
+  background: var(--card-light);
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  box-shadow: none;
+  transition: background 0.2s, border 0.2s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: var(--card-dark);
+    border: 1px solid var(--border-dark);
+  }
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  border: none;
+  transition: background 0.15s;
+}
+.btn:hover {
+  background: #2563eb;
+}
+
+input, textarea, select {
+  background: var(--card-light);
+  border: 1px solid var(--border-light);
+  color: var(--foreground-light);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s, border 0.2s;
+}
+@media (prefers-color-scheme: dark) {
+  input, textarea, select {
+    background: var(--card-dark);
+    border: 1px solid var(--border-dark);
+    color: var(--foreground-dark);
+  }
+}
+
+/* SCROLL BEHAVIOR - Handled by JavaScript hook */
+section[id] {
+  position: relative;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
