@@ -43,7 +43,9 @@ export default function Hero() {
           </p>
           <p className={`text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-xl transition-opacity duration-500 ${showDesc ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.1s' }}>            Building production-ready SaaS. Creator of <span
   className="font-semibold accent text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
-  onClick={() => scrollToSection('projects')}
+  onClick={() => {
+    window.dispatchEvent(new Event('expand-aperturepm'))
+  }}
 >
   AperturePM
 </span>, a multi-tenant property management platform serving real clients. Passionate about modern web development, automation, and delivering real value through technology.

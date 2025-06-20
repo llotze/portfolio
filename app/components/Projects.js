@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, ChevronDown, ChevronRight, Code, Lightbulb, Settings } from 'lucide-react'
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useStackableScroll } from '../hooks/useStackableScroll'
@@ -7,7 +7,7 @@ import CommitHeatmap from './CommitHeatmap'
 
 export default function Projects() {
   const [expandedSections, setExpandedSections] = useState({})
-  const [isProjectExpanded, setIsProjectExpanded] = useState(false)
+  const [isProjectExpanded, setIsProjectExpanded] = useState(true)
   const { scrollToSection, setLastScrolled } = useScrollTo()
   const { handleSectionToggle } = useStackableScroll()
   
@@ -82,6 +82,17 @@ export default function Projects() {
     "Tailwind CSS", "Stripe API", "DocuSign API", "Supabase",
     "Railway", "Nodemailer", "NextAuth"
   ]
+
+  useEffect(() => {
+    function handleExpandAperturePM() {
+      setIsProjectExpanded(true)
+      setTimeout(() => {
+        scrollToSection('aperturepm-card', 25)
+      }, 100)
+    }
+    window.addEventListener('expand-aperturepm', handleExpandAperturePM)
+    return () => window.removeEventListener('expand-aperturepm', handleExpandAperturePM)
+  }, [scrollToSection])
 
   return (
     <section id="projects" className="min-h-screen py-20 flex flex-col justify-center">
