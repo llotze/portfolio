@@ -77,7 +77,7 @@ export default function Projects() {
   ]
 
   const techStack = [
-    "Next.js 15", "React 19", "PostgreSQL", "Prisma ORM", 
+    "Next.js 15", "Node.js 22", "React 19","PostgreSQL", "Prisma ORM", 
     "Tailwind CSS", "Stripe API", "DocuSign API", "Supabase",
     "Railway", "Nodemailer", "NextAuth"
   ]

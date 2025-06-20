@@ -10,6 +10,7 @@ import { FileText } from "lucide-react";
 
 const coreIcons = [
   { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
+  { name: "Node.js", icon: <SiNodedotjs className="text-green-600" /> },
   { name: "Next.js", icon: <SiNextdotjs className="text-gray-900 dark:text-gray-100" /> },
   { name: "React", icon: <SiReact className="text-blue-400" /> },
   { name: "Tailwind CSS", icon: <SiTailwindcss className="text-teal-400" /> },
@@ -48,7 +49,9 @@ export default function About() {
           <p className="text-xl max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             Computer Science student at Boston University with a passion for building production-ready applications that solve real-world problems.
           </p>
-        </div>        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        </div>        
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Left Column - About Text */}
           <div className="lg:col-span-2 space-y-6">
             <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
@@ -62,11 +65,13 @@ export default function About() {
               I've successfully built AperturePM, a multi-tenant property management platform that's 
               currently serving real clients, demonstrating my ability to create production-ready solutions 
               using modern technologies and API integrations.
-            </p>            {/* Technologies Grid - Moved under text */}
+            </p>
+            
+            {/* Technologies Grid - Moved under text */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Core Technologies</h3>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {coreIcons.map((tech, idx) => (
                     <div key={idx} className="flex flex-col items-center gap-2 group">
                       <span className="text-3xl scale-hover">
@@ -79,7 +84,7 @@ export default function About() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Integrations</h3>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {integrationIcons.map((integration, idx) => (
                     <div key={idx} className="flex flex-col items-center gap-2 group">
                       <span className="text-3xl scale-hover">
@@ -90,7 +95,9 @@ export default function About() {
                   ))}
                 </div>
               </div>
-            </div>            {/* Languages - Moved under technologies */}
+            </div>
+            
+            {/* Languages - Moved under technologies */}
             <div className="mt-6">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Languages</h3>
               <div className="flex flex-wrap gap-3">
@@ -106,7 +113,8 @@ export default function About() {
               </div>
             </div>
           </div>
-            {/* Right Column - Education Card */}
+          
+          {/* Right Column - Education Card */}
           <div className="lg:col-span-1">
             <div className="card p-6 h-fit">
               <div className="flex items-center gap-2 mb-4">
@@ -128,7 +136,9 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>      <style jsx global>{`
+      </div>
+      
+      <style jsx global>{`
         .scale-hover svg {
           transition: transform 0.18s;
         }

@@ -96,7 +96,7 @@ export default function Contact() {
             {/* Left Column - Contact Info */}
             <div className="space-y-6">
               {/* Contact Methods & Status Combined */}
-              <div className="border border-zinc-200 dark:border-0 dark:bg-zinc-800/30 rounded-lg p-5">
+              <div className="card dark:!border-0 p-5">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Contact Information</h3>
                 
                 {/* Contact Grid */}
@@ -138,7 +138,7 @@ export default function Contact() {
               </div>
 
               {/* Skills & Social Combined */}
-              <div className="border border-zinc-200 dark:border-0 dark:bg-zinc-800/30 rounded-lg p-5">
+              <div className="card dark:!border-0 p-5">
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-4">What I Bring</h4>
                 <div className="space-y-2 text-sm text-gray-700 dark:text-gray-200 mb-5">
                   <div><strong className="text-gray-900 dark:text-white">Full-Stack:</strong> Next.js, React, PostgreSQL, APIs</div>
@@ -161,7 +161,7 @@ export default function Contact() {
                       <span className="font-medium text-gray-900 dark:text-white text-sm">GitHub</span>
                     </a>
                     <a
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/in/lucas-lotze-79b777340/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-zinc-700/50 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors group flex-1 justify-center"

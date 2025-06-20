@@ -69,7 +69,7 @@ export default function Hero() {
               <Github size={30} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/lucas-lotze-79b777340"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
