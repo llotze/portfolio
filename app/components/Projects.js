@@ -106,11 +106,20 @@ export default function Projects() {
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">AperturePM</h3>
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400">Live</span>
+                  <div className="flex items-center gap-4 mb-3">
+                    <img
+                      src="/aperturepm-logo.png"
+                      alt="AperturePM Logo"
+                      className="w-10 h-10 rounded-md object-contain"
+                      style={{ flexShrink: 0 }}
+                      draggable={false}
+                    />
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-3xl font-bold text-gray-900 dark:text-white">AperturePM</h3>
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs text-green-600 dark:text-green-400">Live</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">Multi-Tenant Property Management SaaS Platform</p>
@@ -192,7 +201,7 @@ export default function Projects() {
                   <div className="lg:col-span-1 flex flex-col justify-center">
                     <div className="space-y-6">
                       <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
-                        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">28<span className="text-blue-400 dark:text-blue-500">d</span></div>
+                        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">28 <span className="text-blue-400 dark:text-blue-500">Days</span></div>
                         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Concept to Production</div>
                       </div>
                       {/* Replace 90% card with CommitHeatmap */}
