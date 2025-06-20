@@ -13,7 +13,7 @@ export default function CommitHeatmap() {
     '2025-05-19': 0,
     '2025-05-20': 0,
     '2025-05-21': 0,
-    '2025-05-22': 3, // initial commit + 2 more
+    '2025-05-22': 3,
     '2025-05-23': 8,
     '2025-05-24': 4,
     '2025-05-25': 1,
@@ -21,17 +21,17 @@ export default function CommitHeatmap() {
     '2025-05-27': 11,
     '2025-05-28': 15,
     '2025-05-29': 16,
-    '2025-05-30': 19,
-    '2025-05-31': 18,
+    '2025-05-30': 50, // CSS consistency changes
+    '2025-05-31': 48, // Request functionality
     
     // June 2025
-    '2025-06-01': 22,
-    '2025-06-02': 21,
+    '2025-06-01': 70, // Loading improvements & CSS fixes (biggest day!)
+    '2025-06-02': 30, // CSS changes
     '2025-06-03': 12,
     '2025-06-04': 13,
-    '2025-06-05': 17,
+    '2025-06-05': 32, // Auto charge system implementation
     '2025-06-06': 6,
-    '2025-06-07': 17,
+    '2025-06-07': 25, // Document signing implementation
     '2025-06-08': 10,
     '2025-06-09': 0,
     '2025-06-10': 4,
@@ -39,16 +39,16 @@ export default function CommitHeatmap() {
     '2025-06-12': 9,
     '2025-06-13': 8,
     '2025-06-14': 4,
-    '2025-06-15': 6,
+    '2025-06-15': 10, // Stripe implementation
     '2025-06-16': 9,
-    '2025-06-17': 21,
+    '2025-06-17': 31, // Deployment fixes
     '2025-06-18': 4,
   }
 
   // Create calendar grid (May 16 - June 18)
   const createCalendarData = () => {
-    const startDate = new Date('2025-05-16')
-    const endDate = new Date('2025-06-18')
+    const startDate = new Date('2025-05-11T12:00:00-04:00') // EST with time
+    const endDate = new Date('2025-06-18T12:00:00-04:00')   // June 17, not 18
     const weeks = []
     let currentWeek = []
     
@@ -59,7 +59,11 @@ export default function CommitHeatmap() {
     let currentDate = new Date(firstWeekStart)
     
     while (currentDate <= endDate) {
-      const dateStr = currentDate.toISOString().split('T')[0]
+      const year = currentDate.getFullYear()
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0')
+      const day = String(currentDate.getDate()).padStart(2, '0')
+      const dateStr = `${year}-${month}-${day}`
+      
       const commits = commitData[dateStr] || 0
       const isInRange = currentDate >= startDate && currentDate <= endDate
       
@@ -197,7 +201,7 @@ export default function CommitHeatmap() {
       </div>
       
       <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-        May 16 - June 18, 2025
+        May 11 - June 18, 2025
       </div>
     </div>
   )

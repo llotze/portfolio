@@ -10,7 +10,7 @@ export default function Hero() {
   const [showBtns, setShowBtns] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [showArrow, setShowArrow] = useState(false) 
-  const scrollToSection = useScrollTo()
+  const { scrollToSection } = useScrollTo()
 
   useEffect(() => {
     const timers = [

@@ -135,7 +135,7 @@ export default function Contact() {
         <div className="text-center mb-6 border-b border-zinc-200 dark:border-zinc-700 pb-4">
           <h2 className="text-4xl mb-2 accent">Get In Touch</h2>
           <p className="text-lg max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            I'm always open to discussing new opportunities, internships, and interesting projects
+            Open to discussing new opportunities, internships, and interesting projects
           </p>
         </div>
         
