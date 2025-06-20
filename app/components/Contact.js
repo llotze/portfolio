@@ -11,18 +11,56 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
+    
+    // Clear field error when user starts typing
+    if (fieldErrors[e.target.name]) {
+      setFieldErrors({
+        ...fieldErrors,
+        [e.target.name]: ''
+      })
+    }
+  }
+
+  const validateForm = () => {
+    const errors = {}
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required'
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address'
+    }
+    
+    if (!formData.message.trim()) {
+      errors.message = 'Message is required'
+    }
+    
+    return errors
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError('')
+    setFieldErrors({})
+
+    // Validate form
+    const errors = validateForm()
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
+      setIsSubmitting(false)
+      return
+    }
 
     try {
       const response = await fetch('https://formspree.io/f/mjkrewod', {
@@ -82,6 +120,14 @@ export default function Contact() {
       href: null
     }
   ]
+
+  const getInputClassName = (fieldName) => {
+    const baseClasses = "w-full px-3 py-2 rounded-lg focus:outline-none text-gray-900 dark:text-white transition-colors"
+    const normalClasses = "bg-white dark:bg-zinc-700/50 border-gray-300 dark:border-zinc-600 focus:border-blue-500 dark:focus:border-blue-400"
+    const errorClasses = "bg-white dark:bg-zinc-700/50 border-red-500 focus:border-red-500"
+    
+    return `${baseClasses} ${fieldErrors[fieldName] ? errorClasses : normalClasses} border`
+  }
 
   return (
     <section id="contact" className="min-h-screen py-12 flex flex-col justify-center">
@@ -206,11 +252,14 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-white dark:bg-zinc-700/50 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-gray-900 dark:text-white"
+                      className={getInputClassName('name')}
                       placeholder="Your Name"
                       required
                       disabled={isSubmitting}
                     />
+                    {fieldErrors.name && (
+                      <p className="text-red-500 text-xs mt-1">{fieldErrors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -222,11 +271,14 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-white dark:bg-zinc-700/50 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-gray-900 dark:text-white"
+                      className={getInputClassName('email')}
                       placeholder="your.email@example.com"
                       required
                       disabled={isSubmitting}
                     />
+                    {fieldErrors.email && (
+                      <p className="text-red-500 text-xs mt-1">{fieldErrors.email}</p>
+                    )}
                   </div>
                 </div>
                 
@@ -240,11 +292,14 @@ export default function Contact() {
                     rows="8"
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 bg-white dark:bg-zinc-700/50 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 text-gray-900 dark:text-white"
+                    className={getInputClassName('message')}
                     placeholder="Tell me about your project, opportunity, or just say hello..."
                     required
                     disabled={isSubmitting}
                   ></textarea>
+                  {fieldErrors.message && (
+                    <p className="text-red-500 text-xs mt-1">{fieldErrors.message}</p>
+                  )}
                 </div>
                 
                 {error && (

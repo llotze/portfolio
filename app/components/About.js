@@ -26,7 +26,7 @@ const integrationIcons = [
     name: "DocuSign", 
     icon: (
       <img 
-        src="/docusign-logo.svg" 
+        src="/docusign-logo.png" 
         alt="DocuSign" 
         className="w-8 h-8 object-contain"
       />
