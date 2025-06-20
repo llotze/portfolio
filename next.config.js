@@ -5,9 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  // Remove the basePath and assetPrefix - let GitHub Pages handle this automatically
-  basePath: '',
-  assetPrefix: '',
+  basePath: '/portfolio-website',
+  assetPrefix: '/portfolio-website/',
 }
 
 module.exports = nextConfig
