@@ -9,8 +9,7 @@ import { SiMaildotru } from "react-icons/si";
 import { FileText } from "lucide-react";
 
 const getImagePath = (imageName) => {
-  const basePath = process.env.NODE_ENV === 'production' ? '/portfolio-website' : '';
-  return `${basePath}/${imageName}`;
+  return `/${imageName}`;
 };
 
 const coreIcons = [
