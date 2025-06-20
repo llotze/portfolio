@@ -2,11 +2,12 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/portfolio-website' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/portfolio-website/' : '',
   images: {
     unoptimized: true
-  }
+  },
+  // Remove the basePath and assetPrefix - let GitHub Pages handle this automatically
+  basePath: '',
+  assetPrefix: '',
 }
 
 module.exports = nextConfig
