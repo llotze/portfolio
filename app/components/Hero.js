@@ -59,8 +59,8 @@ export default function Hero() {
             <a
               href={
                 typeof window !== "undefined" && window.location.hostname === "llotze.github.io"
-                  ? "/portfolio/Lucas-Lotze-Resume.pdf"
-                  : "/Lucas-Lotze-Resume.pdf"
+                   "/portfolio/Lucas-Lotze-Resume.pdf"
+                 
               }
               download="Lucas-Lotze-Resume.pdf"
               className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
