@@ -49,11 +49,27 @@ export default function Hero() {
 </span>, a multi-tenant property management platform serving real clients. Passionate about modern web development, automation, and delivering real value through technology.
           </p>          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.15s' }}>            <button
               onClick={() => scrollToSection('contact')}
-              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
             >
-              <Mail size={18} className="text-gray-400 dark:text-gray-400" />
+              <Mail size={18} className="text-gray-400 dark:text-gray-400 transition-transform group-hover:translate-y-0.5" />
               Contact Me
             </button>
+            
+            {/* Add this resume download button */}
+            <a
+              href={
+                typeof window !== "undefined" && window.location.hostname === "llotze.github.io"
+                  ? "/portfolio/Lucas-Lotze-Resume.pdf"
+                  : "/Lucas-Lotze-Resume.pdf"
+              }
+              download="Lucas-Lotze-Resume.pdf"
+              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
+            >
+              <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download Resume
+            </a>
           </div>
         </div>
         {/* Socials */}

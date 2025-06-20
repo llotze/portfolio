@@ -306,7 +306,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
                   {isSubmitting ? (
                     <>
@@ -315,7 +315,7 @@ export default function Contact() {
                     </>
                   ) : (
                     <>
-                      <Send size={18} className="text-gray-400 dark:text-gray-400" />
+                      <Send size={18} className="text-gray-400 dark:text-gray-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       Send Message
                     </>
                   )}
