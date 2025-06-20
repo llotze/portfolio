@@ -57,13 +57,11 @@ export default function Hero() {
             
             {/* Add this resume download button */}
             <a
-              href={
-                typeof window !== "undefined" && window.location.hostname === "llotze.github.io"
-                   "/portfolio/Lucas-Lotze-Resume.pdf"
-                 
-              }
+              href="/portfolio/Lucas-Lotze-Resume.pdf"
               download="Lucas-Lotze-Resume.pdf"
               className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
