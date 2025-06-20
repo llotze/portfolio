@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true
   },
-  // Remove the basePath and assetPrefix - let GitHub Pages handle this automatically
-  basePath: '',
-  assetPrefix: '',
+  basePath: isProd ? '/portfolio-website' : '',
+  assetPrefix: isProd ? '/portfolio-website/' : '',
 }
 
 module.exports = nextConfig
