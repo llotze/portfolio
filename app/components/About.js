@@ -9,17 +9,8 @@ import { SiMaildotru } from "react-icons/si";
 import { FileText } from "lucide-react";
 
 const getImagePath = (imageName) => {
-  // For GitHub Pages, we need the repository name in the path
-  if (typeof window !== 'undefined') {
-    // Client-side: check if we're on GitHub Pages
-    return window.location.hostname === 'llotze.github.io' 
-      ? `/portfolio-website/${imageName}` 
-      : `/${imageName}`;
-  }
-  // Server-side: assume production
-  return process.env.NODE_ENV === 'production' 
-    ? `/portfolio-website/${imageName}` 
-    : `/${imageName}`;
+  const basePath = process.env.NODE_ENV === 'production' ? '/portfolio' : '';
+  return `${basePath}/${imageName}`;
 };
 
 const coreIcons = [
