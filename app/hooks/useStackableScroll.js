@@ -112,7 +112,12 @@ export const useStackableScroll = () => {
         targetScroll = lowestSection.bottom - windowHeight + marginFromBottom
       } else if (allExpandedSectionIds.length === 2) {
         // Two sections expanded - prioritize the lowest one
-        const marginFromBottom = 40
+        let marginFromBottom
+        if (sortedExpandedSections.includes('technical') && sortedExpandedSections.includes('features')) {
+            marginFromBottom = 112  // ← Change this number to control technical + features scroll
+        } else {
+            marginFromBottom = 40   // ← For other 2-section combinations
+        }
         targetScroll = lowestSection.bottom - windowHeight + marginFromBottom
       } else {
         // Three sections expanded - check if we can show the most recent while keeping the lowest visible

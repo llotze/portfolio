@@ -47,10 +47,9 @@ export default function Hero() {
 >
   AperturePM
 </span>, a multi-tenant property management platform serving real clients. Passionate about modern web development, automation, and delivering real value through technology.
-          </p>
-          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.15s' }}>            <button
+          </p>          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.15s' }}>            <button
               onClick={() => scrollToSection('contact')}
-              className="flex items-center gap-2 px-5 py-2 text-gray-500 dark:text-gray-300 border border-zinc-300 dark:border-zinc-600 bg-transparent rounded-md transition-colors hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
             >
               <Mail size={18} className="text-gray-400 dark:text-gray-400" />
               Contact Me

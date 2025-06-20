@@ -38,7 +38,7 @@ export default function Projects() {
         scrollToSection('aperturepm-card', 25)
       } else {
         // When collapsing, scroll back to the projects section
-        scrollToSection('projects', 80)
+        scrollToSection('projects')
       }
     }, 100) // Small delay to allow state update and DOM changes
   }
@@ -119,11 +119,12 @@ export default function Projects() {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <a 
-                    href="#" 
+                <div className="flex items-start gap-3">                  <a 
+                    href="https://aperturepm.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-2 px-6 py-3 text-gray-900 dark:text-white border border-zinc-300 dark:border-zinc-600 bg-transparent rounded-md transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none whitespace-nowrap group"
+                    className="flex items-center gap-2 px-6 py-3 text-gray-800 dark:text-white bg-transparent rounded-md transition-all hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none whitespace-nowrap group"
                   >
                     <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     View Live
@@ -339,7 +340,7 @@ export default function Projects() {
 
           {/* Future Projects */}
           <div className={`text-center transition-opacity duration-500 ${isProjectExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-            <div className="card p-8">
+            <div className="card dark:!border-0 p-8">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-3">More Projects Coming Soon</h4>
               <p className="text-gray-700 dark:text-gray-200 max-w-md mx-auto">
                 AperturePM is my first major full-stack project. I'm actively working on new ideas and will add more projects here as I continue building my portfolio.
