@@ -326,8 +326,8 @@ export default function Contact() {
         </div>
         
         {/* Footer */}
-        <div className="text-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="text-center mt-6 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+          <p className="text-gray-700 dark:text-gray-300">
             © 2025 Lucas Lotze. All rights reserved.
           </p>
         </div>

@@ -340,6 +340,7 @@ export default function Projects() {
                             <li><strong>Payment processing:</strong> Integrating complex Stripe workflows with error handling</li>
                             <li><strong>Document automation:</strong> Creating seamless DocuSign integration with status tracking</li>
                             <li><strong>Automated billing:</strong> Setting up reliable cron jobs on Vercel for automated charges and overdue detection</li>
+                            <li><strong>Unified notifications:</strong> Designing an internal notification system integrated with the sidebar and dropdown menus for intuitive, context-aware alerts across the platform</li>
                           </ul>
                         </div>
                         <div>
