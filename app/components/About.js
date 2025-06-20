@@ -26,7 +26,7 @@ const integrationIcons = [
     name: "DocuSign", 
     icon: (
       <img 
-        src="/docusign-logo.png" 
+        src={`${process.env.NODE_ENV === 'production' ? '/portfolio-website' : ''}/docusign-logo.png`}
         alt="DocuSign" 
         className="w-8 h-8 object-contain"
       />
@@ -126,7 +126,11 @@ export default function About() {
               <div className="space-y-2 text-gray-600 dark:text-gray-300">
                 <p className="flex items-center gap-2">
                   Boston University
-                  <img src="/bu-logo-gray.png" alt="Boston University Logo" className="h-15 w-15 -m-5 -ml-4 object-contain grayscale" />
+                  <img 
+                    src={`${process.env.NODE_ENV === 'production' ? '/portfolio-website' : ''}/bu-logo-gray.png`}
+                    alt="Boston University Logo" 
+                    className="h-15 w-15 -m-5 -ml-4 object-contain grayscale" 
+                  />
                 </p>
                 <p> Major: Computer Science</p>
                 <p> Minor: Business Administration and Management</p>
