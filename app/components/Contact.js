@@ -25,21 +25,23 @@ export default function Contact() {
     setError('')
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formspree.io/f/mjkrewod', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _replyto: formData.email
+        }),
       })
 
-      const data = await response.json()
-
-      if (data.success) {
+      if (response.ok) {
         setIsSuccess(true)
         setFormData({ name: '', email: '', message: '' })
         
-        // Reset success state after 3 seconds
         setTimeout(() => {
           setIsSuccess(false)
         }, 3000)
