@@ -122,11 +122,11 @@ export default function Contact() {
   ]
 
   const getInputClassName = (fieldName) => {
-    const baseClasses = "w-full px-3 py-2 rounded-lg focus:outline-none text-gray-900 dark:text-white transition-colors"
+    const baseClasses = "w-full px-3 py-2 rounded-lg focus:outline-none text-gray-900 dark:text-white transition-colors !important"
     const normalClasses = "bg-white dark:bg-zinc-700/50 border-gray-300 dark:border-zinc-600 focus:border-blue-500 dark:focus:border-blue-400"
-    const errorClasses = "bg-white dark:bg-zinc-700/50 border-red-500 focus:border-red-500"
+    const errorClasses = "bg-white dark:bg-zinc-700/50 !border-red-500 focus:!border-red-500"
     
-    return `${baseClasses} ${fieldErrors[fieldName] ? errorClasses : normalClasses} border`
+    return `${baseClasses} ${fieldErrors[fieldName] ? errorClasses : normalClasses} border-2`
   }
 
   return (
@@ -144,7 +144,7 @@ export default function Contact() {
             {/* Left Column - Contact Info */}
             <div className="space-y-6">
               {/* Contact Methods & Status Combined */}
-              <div className="card dark:!border-0 p-5">
+              <div >
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Contact Information</h3>
                 
                 {/* Contact Grid */}
@@ -186,7 +186,7 @@ export default function Contact() {
               </div>
 
               {/* Skills & Social Combined */}
-              <div className="card dark:!border-0 p-5">
+              <div >
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-4">What I Bring</h4>
                 <div className="space-y-2 text-sm text-gray-700 dark:text-gray-200 mb-5">
                   <div><strong className="text-gray-900 dark:text-white">Full-Stack:</strong> Next.js, React, PostgreSQL, APIs</div>
@@ -240,7 +240,7 @@ export default function Contact() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -254,7 +254,6 @@ export default function Contact() {
                       onChange={handleInputChange}
                       className={getInputClassName('name')}
                       placeholder="Your Name"
-                      required
                       disabled={isSubmitting}
                     />
                     {fieldErrors.name && (
@@ -273,7 +272,6 @@ export default function Contact() {
                       onChange={handleInputChange}
                       className={getInputClassName('email')}
                       placeholder="your.email@example.com"
-                      required
                       disabled={isSubmitting}
                     />
                     {fieldErrors.email && (
@@ -294,7 +292,6 @@ export default function Contact() {
                     onChange={handleInputChange}
                     className={getInputClassName('message')}
                     placeholder="Tell me about your project, opportunity, or just say hello..."
-                    required
                     disabled={isSubmitting}
                   ></textarea>
                   {fieldErrors.message && (

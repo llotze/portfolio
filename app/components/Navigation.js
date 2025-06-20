@@ -13,7 +13,7 @@ export default function Navigation() {
   const [showTopbarBg, setShowTopbarBg] = useState(false)
   const navRef = useRef(null)
   const fullName = 'Lucas Lotze'
-  const scrollToSection = useScrollTo()
+  const { scrollToSection } = useScrollTo()
 
   // Responsive: switch to topbar if width < 1318px
   useEffect(() => {

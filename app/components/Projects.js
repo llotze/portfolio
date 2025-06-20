@@ -3,11 +3,12 @@ import { useState } from 'react'
 import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, ChevronDown, ChevronRight, Code, Lightbulb, Settings } from 'lucide-react'
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useStackableScroll } from '../hooks/useStackableScroll'
+import CommitHeatmap from './CommitHeatmap'
 
 export default function Projects() {
   const [expandedSections, setExpandedSections] = useState({})
   const [isProjectExpanded, setIsProjectExpanded] = useState(false)
-  const scrollToSection = useScrollTo()
+  const { scrollToSection, setLastScrolled } = useScrollTo()
   const { handleSectionToggle } = useStackableScroll()
   
   const toggleSection = (section) => {
@@ -37,10 +38,10 @@ export default function Projects() {
         // When expanding, scroll to the AperturePM card itself
         scrollToSection('aperturepm-card', 25)
       } else {
-        // When collapsing, scroll back to the projects section
-        scrollToSection('projects')
+        // When collapsing, scroll to the separate collapse anchor (not projects)
+        scrollToSection('projects-collapse', 20)
       }
-    }, 100) // Small delay to allow state update and DOM changes
+    }, 100)
   }
 
   const features = [
@@ -84,6 +85,9 @@ export default function Projects() {
 
   return (
     <section id="projects" className="min-h-screen py-20 flex flex-col justify-center">
+      {/* Invisible anchor for collapse scroll - positioned exactly like projects */}
+      <div id="projects-collapse" className="absolute" style={{ top: '-20px' }}></div>
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 border-b border-zinc-200 dark:border-zinc-700 pb-8">
           <h2 className="text-4xl mb-4 accent">Projects</h2>
@@ -111,9 +115,9 @@ export default function Projects() {
                   </div>
                   <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">Multi-Tenant Property Management SaaS Platform</p>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                    <span> May 22 - June 18, 2025</span>
+                    <span> May 21 - June 18, 2025</span>
                     <span>⏱ 285+ Hours</span>
-                    <span>500+ Commits</span>
+                    <span>450+ Commits</span>
                     <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
                       Private Repository
                     </span>
@@ -191,21 +195,29 @@ export default function Projects() {
                         <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">28<span className="text-blue-400 dark:text-blue-500">d</span></div>
                         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Concept to Production</div>
                       </div>
-                      <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
-                        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">90%</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Efficiency Improvement</div>
-                      </div>
+                      {/* Replace 90% card with CommitHeatmap */}
+                      <CommitHeatmap />
                     </div>
                   </div>
                 </div>
 
                 {/* Technology Stack */}
-                <div>
+                <div className="lg:-mt-28">
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Technology Stack</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {techStack.map((tech, index) => (
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {techStack.slice(0, 6).map((tech, index) => (
                       <span 
                         key={index}
+                        className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {techStack.slice(6).map((tech, index) => (
+                      <span 
+                        key={index + 6}
                         className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200"
                       >
                         {tech}

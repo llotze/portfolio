@@ -1,20 +1,31 @@
 'use client'
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 
 export const useScrollTo = () => {
-  const scrollToSection = useCallback((sectionId, offset = 20) => {
+  const lastScrolledSection = useRef(null)
+
+  const scrollToSection = useCallback((sectionId, offset = 20, forceScroll = false) => {
     const element = document.getElementById(sectionId)
     if (!element) return
 
-    // Get the element's position relative to the document
+    // Check if we're already at this section and close to it
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-    
-    // Calculate the target scroll position with offset
+    const currentScroll = window.pageYOffset
     const targetPosition = elementPosition - offset
+
+    // If we're calling the same section and already close to it, don't scroll (unless forced)
+    if (!forceScroll && lastScrolledSection.current === sectionId && Math.abs(currentScroll - targetPosition) < 50) {
+      return
+    }
+
+    lastScrolledSection.current = sectionId
+
+    // Calculate the target scroll position with offset
+    const targetScrollPosition = elementPosition - offset
 
     // Use requestAnimationFrame for smooth, custom animation
     const startPosition = window.pageYOffset
-    const distance = targetPosition - startPosition
+    const distance = targetScrollPosition - startPosition
     const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.8 // Adaptive duration
     
     let startTime = null
@@ -41,5 +52,8 @@ export const useScrollTo = () => {
     requestAnimationFrame(animateScroll)
   }, [])
 
-  return scrollToSection
+  return { 
+    scrollToSection, 
+    setLastScrolled: (sectionId) => { lastScrolledSection.current = sectionId } 
+  }
 }

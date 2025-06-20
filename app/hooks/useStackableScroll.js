@@ -50,9 +50,24 @@ export const useStackableScroll = () => {
       
       if (allExpandedSectionIds.length === 0) {
         // No sections expanded, return to regular AperturePM view
-        scrollToAperturePM()
+        const isMobile = window.innerWidth < 1024 // lg breakpoint
+        if (isMobile) {
+          // On mobile: position bottom of AperturePM card at bottom of screen
+          const apertureCard = document.getElementById('aperturepm-card')
+          if (apertureCard) {
+            const apertureRect = apertureCard.getBoundingClientRect()
+            const apertureBottom = apertureRect.bottom + window.pageYOffset
+            const windowHeight = window.innerHeight
+            const padding = 10 // A few pixels of space at bottom
+            
+            const targetPosition = apertureBottom - windowHeight + padding
+            smoothScrollTo(Math.max(0, targetPosition))
+          }
+        } else {
+          scrollToAperturePM()
+        }
         return
-      }
+    }
 
       // Get the AperturePM card to calculate relative positioning
       const apertureCard = document.getElementById('aperturepm-card')
