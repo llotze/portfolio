@@ -6,6 +6,7 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { SiMaildotru } from "react-icons/si";
+import { FileText } from "lucide-react";
 
 const coreIcons = [
   { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
@@ -20,6 +21,16 @@ const coreIcons = [
 
 const integrationIcons = [
   { name: "Stripe", icon: <SiStripe className="text-indigo-500" /> },
+  { 
+    name: "DocuSign", 
+    icon: (
+      <img 
+        src="/docusign-logo.svg" 
+        alt="DocuSign" 
+        className="w-8 h-8 object-contain"
+      />
+    )
+  },
   { name: "Supabase", icon: <SiSupabase className="text-green-600" /> },
   { name: "Railway", icon: <SiRailway className="text-black dark:text-gray-200" /> },
   { name: "Vercel", icon: <SiVercel className="text-black dark:text-gray-200" /> },
@@ -83,17 +94,27 @@ export default function About() {
             <div className="mt-6">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Languages</h3>
               <div className="flex flex-wrap gap-3">
-                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">English (Native)</span>
-                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">Spanish (Fluent)</span>
-                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">Portuguese (Fluent)</span>
+                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
+                  English <span className="text-xs text-gray-500 dark:text-gray-400">Native</span>
+                </span>
+                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
+                  Spanish <span className="text-xs text-gray-500 dark:text-gray-400">Fluent</span>
+                </span>
+                <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
+                  Portuguese <span className="text-xs text-gray-500 dark:text-gray-400">Fluent</span>
+                </span>
               </div>
             </div>
           </div>
-          
-          {/* Right Column - Education Card */}
+            {/* Right Column - Education Card */}
           <div className="lg:col-span-1">
             <div className="card p-6 h-fit">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Education</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Education</h3>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                </div>
+              </div>
               <div className="space-y-2 text-gray-600 dark:text-gray-300">
                 <p className="flex items-center gap-2">
                   Boston University
@@ -107,12 +128,17 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>
-      <style jsx global>{`
+      </div>      <style jsx global>{`
         .scale-hover svg {
           transition: transform 0.18s;
         }
         .scale-hover:hover svg {
+          transform: scale(1.13);
+        }
+        .scale-hover img {
+          transition: transform 0.18s;
+        }
+        .scale-hover:hover img {
           transform: scale(1.13);
         }
       `}</style>
