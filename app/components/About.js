@@ -8,6 +8,10 @@ import { FaJava } from "react-icons/fa";
 import { SiMaildotru } from "react-icons/si";
 import { FileText } from "lucide-react";
 
+const getImagePath = (imageName) => {
+  return `/${imageName}`;
+};
+
 const coreIcons = [
   { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
   { name: "Node.js", icon: <SiNodedotjs className="text-green-600" /> },
@@ -26,7 +30,7 @@ const integrationIcons = [
     name: "DocuSign", 
     icon: (
       <img 
-        src={`${process.env.NODE_ENV === 'production' ? '/portfolio-website' : ''}/docusign-logo.png`}
+        src={getImagePath('docusign-logo.png')}
         alt="DocuSign" 
         className="w-8 h-8 object-contain"
       />
@@ -127,7 +131,7 @@ export default function About() {
                 <p className="flex items-center gap-2">
                   Boston University
                   <img 
-                    src={`${process.env.NODE_ENV === 'production' ? '/portfolio-website' : ''}/bu-logo-gray.png`}
+                    src={getImagePath('bu-logo-gray.png')}
                     alt="Boston University Logo" 
                     className="h-15 w-15 -m-5 -ml-4 object-contain grayscale" 
                   />
