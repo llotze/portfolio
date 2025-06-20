@@ -201,7 +201,7 @@ export default function Projects() {
                   <div className="lg:col-span-1 flex flex-col justify-center">
                     <div className="space-y-6">
                       <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
-                        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">28 <span className="text-blue-400 dark:text-blue-500">Days</span></div>
+                        <div className="text-4xl font-medium text-gray-900 dark:text-white mb-2">28 <span className="text-blue-400 dark:text-blue-500">Days</span></div>
                         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Concept to Production</div>
                       </div>
                       {/* Replace 90% card with CommitHeatmap */}
