@@ -119,7 +119,7 @@ export default function Projects() {
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-3">
                     <img
-                      src="/aperturepm-logo.png"
+                      src="/portfolio/aperturepm-logo.png"
                       alt="AperturePM Logo"
                       className="w-10 h-10 rounded-md object-contain"
                       style={{ flexShrink: 0 }}

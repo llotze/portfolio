@@ -4,7 +4,7 @@ import { useState } from 'react'
 export default function CommitHeatmap() {
   const [hoveredDay, setHoveredDay] = useState(null)
 
-  // Parse commit data from May 16 - June 18, 2025
+  // Parse commit data from May 16 - June 20, 2025
   const commitData = {
     // May 2025 (second half)
     '2025-05-16': 0,
@@ -43,12 +43,14 @@ export default function CommitHeatmap() {
     '2025-06-16': 9,
     '2025-06-17': 31, // Deployment fixes
     '2025-06-18': 4,
+    '2025-06-19': 19, // css improvements + sidebar work
+    '2025-06-20': 18, // sidebar revamp + logo/spacing
   }
 
-  // Create calendar grid (May 16 - June 18)
+  // Create calendar grid (May 16 - June 20)
   const createCalendarData = () => {
     const startDate = new Date('2025-05-11T12:00:00-04:00') // EST with time
-    const endDate = new Date('2025-06-18T12:00:00-04:00')   // June 17, not 18
+    const endDate = new Date('2025-06-20T12:00:00-04:00')   // Now includes June 20
     const weeks = []
     let currentWeek = []
     
@@ -122,6 +124,7 @@ export default function CommitHeatmap() {
   }
 
   const activeDays = Object.values(commitData).filter(commits => commits > 0).length
+  const totalCommits = Object.values(commitData).reduce((a, b) => a + b, 0)
   const weeks = createCalendarData()
 
   return (
@@ -129,7 +132,7 @@ export default function CommitHeatmap() {
       <div className="mb-3">
         <div className="text-sm text-gray-700 dark:text-gray-300 font-medium mb-1">Development Activity</div>
         <div className="text-xs text-gray-500 dark:text-gray-400">
-          {activeDays} active days
+          {activeDays} active days, {totalCommits} commits
         </div>
       </div>
       
@@ -201,7 +204,7 @@ export default function CommitHeatmap() {
       </div>
       
       <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-        May 11 - June 18, 2025
+        May 11 - June 20, 2025
       </div>
     </div>
   )
