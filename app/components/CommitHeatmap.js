@@ -13,44 +13,45 @@ export default function CommitHeatmap() {
     '2025-05-19': 0,
     '2025-05-20': 0,
     '2025-05-21': 0,
-    '2025-05-22': 3,
-    '2025-05-23': 8,
-    '2025-05-24': 4,
+    '2025-05-22': 5,
+    '2025-05-23': 11,
+    '2025-05-24': 5,
     '2025-05-25': 1,
-    '2025-05-26': 6,
-    '2025-05-27': 11,
-    '2025-05-28': 15,
-    '2025-05-29': 16,
-    '2025-05-30': 50, // CSS consistency changes
-    '2025-05-31': 48, // Request functionality
+    '2025-05-26': 7,
+    '2025-05-27': 16,
+    '2025-05-28': 16,
+    '2025-05-29': 23,
+    '2025-05-30': 44, // CSS consistency changes
+    '2025-05-31': 34, // Request functionality
     
     // June 2025
-    '2025-06-01': 70, // Loading improvements & CSS fixes (biggest day!)
-    '2025-06-02': 30, // CSS changes
-    '2025-06-03': 12,
-    '2025-06-04': 13,
-    '2025-06-05': 32, // Auto charge system implementation
-    '2025-06-06': 6,
-    '2025-06-07': 25, // Document signing implementation
-    '2025-06-08': 10,
+    '2025-06-01': 44, // Loading improvements & CSS fixes (biggest day!)
+    '2025-06-02': 29, // CSS changes
+    '2025-06-03': 21,
+    '2025-06-04': 24,
+    '2025-06-05': 28, // Auto charge system implementation
+    '2025-06-06': 8,
+    '2025-06-07': 24, // Document signing implementation
+    '2025-06-08': 16,
     '2025-06-09': 0,
-    '2025-06-10': 4,
-    '2025-06-11': 6,
-    '2025-06-12': 9,
-    '2025-06-13': 8,
+    '2025-06-10': 5,
+    '2025-06-11': 8,
+    '2025-06-12': 15,
+    '2025-06-13': 15,
     '2025-06-14': 4,
-    '2025-06-15': 10, // Stripe implementation
-    '2025-06-16': 9,
-    '2025-06-17': 31, // Deployment fixes
-    '2025-06-18': 4,
-    '2025-06-19': 19, // css improvements + sidebar work
-    '2025-06-20': 18, // sidebar revamp + logo/spacing
+    '2025-06-15': 11, // Stripe implementation
+    '2025-06-16': 15,
+    '2025-06-17': 29, // Deployment fixes
+    '2025-06-18': 3,
+    '2025-06-19': 2, // css improvements + sidebar work
+    '2025-06-20': 6, // sidebar revamp + logo/spacing
+    '2025-06-21': 1 // End date, no commits
   }
 
   // Create calendar grid (May 16 - June 20)
   const createCalendarData = () => {
     const startDate = new Date('2025-05-11T12:00:00-04:00') // EST with time
-    const endDate = new Date('2025-06-20T12:00:00-04:00')   // Now includes June 20
+    const endDate = new Date('2025-06-21T12:00:00-04:00')   // Now includes June 20
     const weeks = []
     let currentWeek = []
     

@@ -137,7 +137,7 @@ export default function Projects() {
                   <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                     <span> May 22 - June 18, 2025</span>
                     <span>⏱ 285+ Hours</span>
-                    <span>450+ Commits</span>
+                    <span>470+ Commits</span>
                     <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
                       Private Repository
                     </span>
