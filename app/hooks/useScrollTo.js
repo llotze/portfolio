@@ -8,10 +8,16 @@ export const useScrollTo = () => {
     const element = document.getElementById(sectionId)
     if (!element) return
 
+    // For short screens, increase offset so header isn't covered by sidebar
+    let adjustedOffset = offset
+    if (window.innerHeight <= 956 && (sectionId === 'contact' || sectionId === 'get-in-touch')) {
+      adjustedOffset = offset + 32 // or set to a value like 52 if you want a fixed offset
+    }
+
     // Check if we're already at this section and close to it
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
     const currentScroll = window.pageYOffset
-    const targetPosition = elementPosition - offset
+    const targetPosition = elementPosition - adjustedOffset
 
     // If we're calling the same section and already close to it, don't scroll (unless forced)
     if (!forceScroll && lastScrolledSection.current === sectionId && Math.abs(currentScroll - targetPosition) < 50) {
@@ -21,7 +27,7 @@ export const useScrollTo = () => {
     lastScrolledSection.current = sectionId
 
     // Calculate the target scroll position with offset
-    const targetScrollPosition = elementPosition - offset
+    const targetScrollPosition = elementPosition - adjustedOffset
 
     // Use requestAnimationFrame for smooth, custom animation
     const startPosition = window.pageYOffset

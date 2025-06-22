@@ -13,30 +13,50 @@ export default function Projects() {
   
   const toggleSection = (section) => {
     setExpandedSections(prev => {
+      const isExpanding = !prev[section];
       const newState = {
         ...prev,
-        [section]: !prev[section]
-      }
-      
-      // Use the new stackable scroll hook with AperturePM scroll function
+        [section]: isExpanding
+      };
       setTimeout(() => {
-        const scrollToAperturePM = () => scrollToSection('aperturepm-card', 25)
-        handleSectionToggle(section, newState[section], newState, scrollToAperturePM)
-      }, 50)
-      
-      return newState
+        if (isExpanding && window.innerHeight <= 956) {
+          const sectionEl = document.querySelector(`[data-section="${section}"]`);
+          if (sectionEl) {
+            const rect = sectionEl.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const offset = 86; // Adjust this value as needed
+            const targetY = rect.top + scrollTop - offset;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        } else {
+          const scrollToAperturePM = () => scrollToSection('aperturepm-card', 25)
+          handleSectionToggle(section, newState[section], newState, scrollToAperturePM)
+        }
+      }, 1); // Slightly longer to ensure DOM update
+      return newState;
     })
   }
 
   const toggleProject = () => {
     const newExpandedState = !isProjectExpanded
     setIsProjectExpanded(newExpandedState)
-    
-    // Scroll behavior based on expand/collapse state
+
     setTimeout(() => {
       if (newExpandedState) {
-        // When expanding, scroll to the AperturePM card itself
-        scrollToSection('aperturepm-card', 25)
+        // For small heights, use a larger offset so the title isn't covered
+        if (window.innerHeight <= 956) {
+          const element = document.getElementById('aperturepm-card');
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const offset = 86; // 25 + 32
+            const targetY = rect.top + scrollTop - offset;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        } else {
+          // Default scroll for other screens
+          scrollToSection('aperturepm-card', 25)
+        }
       } else {
         // When collapsing, scroll to the separate collapse anchor (not projects)
         scrollToSection('projects-collapse', 20)

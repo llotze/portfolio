@@ -11,6 +11,7 @@ export default function Navigation() {
   const [fadeFast, setFadeFast] = useState(false)
   const [isTopbar, setIsTopbar] = useState(false)
   const [showTopbarBg, setShowTopbarBg] = useState(false)
+  const [shrinkTabs, setShrinkTabs] = useState(false)
   const navRef = useRef(null)
   const fullName = 'Lucas Lotze'
   const { scrollToSection } = useScrollTo()
@@ -108,6 +109,20 @@ export default function Navigation() {
     return () => clearInterval(interval)
   }, [])
 
+  // Shrink nav tab labels for iPhone 16 Pro Max and below when name is typing
+  useEffect(() => {
+    function checkShrinkTabs() {
+      if (window.innerWidth <= 440 && typedName.length > 0) {
+        setShrinkTabs(true);
+      } else {
+        setShrinkTabs(false);
+      }
+    }
+    checkShrinkTabs();
+    window.addEventListener('resize', checkShrinkTabs);
+    return () => window.removeEventListener('resize', checkShrinkTabs);
+  }, [typedName])
+
   const navLinks = [
     { label: 'Home', id: 'home' },
     { label: 'About', id: 'about' },
@@ -132,7 +147,7 @@ export default function Navigation() {
       {/* Name shows for sidebar mode (desktop) and topbar when hero name is scrolled past */}
       {((isTopbar && showTopbarName) || (!isTopbar)) && (
         <span
-          className={`font-semibold min-h-[28px] select-none whitespace-nowrap accent ${isTopbar ? 'text-lg' : 'text-xl'}`}
+          className={`font-semibold min-h-[28px] select-none whitespace-nowrap accent ${isTopbar ? 'text-lg' : 'text-xl'}${shrinkTabs ? ' shrink-accent' : ''}`}
           aria-label="Lucas Lotze"
           style={{
             opacity: typedName.length > 0 ? 1 : 0,
@@ -146,12 +161,12 @@ export default function Navigation() {
       )}
       
       {/* Navigation Links */}
-      <div className={isTopbar ? 'flex flex-row gap-6' : 'flex flex-col gap-2'}>
+      <div className={isTopbar ? `flex flex-row gap-6${shrinkTabs ? ' shrink-tabs' : ''}${isTopbar && !shrinkTabs && window.innerWidth <= 440 ? ' grow-tabs' : ''}` : 'flex flex-col gap-2'}>
         {navLinks.map((link) => (
           <button
             key={link.id}
             onClick={() => scrollToSection(link.id)}
-            className="px-2 py-1 text-left rounded transition-colors hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+            className={`px-2 py-1 text-left rounded transition-colors hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none${shrinkTabs ? ' text-sm px-1' : ''}${isTopbar && !shrinkTabs && window.innerWidth <= 440 ? ' grow-tab-btn' : ''}`}
           >
             {link.label}
           </button>
@@ -178,6 +193,25 @@ export default function Navigation() {
             opacity: 1;
             transform: translateX(0);
           }
+        }
+        .shrink-tabs button {
+          font-size: 0.75rem !important;
+          padding-left: 0.15rem !important;
+          padding-right: 0.15rem !important;
+          transition: font-size 0.25s cubic-bezier(0.4,0,0.2,1), padding 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+        .shrink-accent {
+          font-size: 0.80rem !important;
+          line-height: 2.25rem !important;
+          display: flex;
+          align-items: center;
+          transition: font-size 0.25s cubic-bezier(0.4,0,0.2,1), line-height 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+        .grow-tabs button, .grow-tab-btn {
+          font-size: 1rem !important;
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+          transition: font-size 0.25s cubic-bezier(0.4,0,0.2,1), padding 0.25s cubic-bezier(0.4,0,0.2,1);
         }
       `}</style>
     </nav>

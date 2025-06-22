@@ -49,31 +49,33 @@ export default function Hero() {
 >
   AperturePM
 </span>, a multi-tenant property management platform serving real clients. Passionate about modern web development, automation, and delivering real value through technology.
-          </p>          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.15s' }}>            <button
+          </p>          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'} hero-btn-row`}
+            style={{ transitionDelay: '0.15s' }}>
+            <button
               onClick={() => scrollToSection('contact')}
-              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
+              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group contact-btn-mobile"
             >
               <Mail size={18} className="text-gray-400 dark:text-gray-400 transition-transform group-hover:translate-y-0.5" />
-              Contact Me
+              <span className="contact-btn-label">Contact Me</span>
             </button>
-            
-            {/* Add this resume download button */}
             <a
               href="/portfolio/Lucas-Lotze-Resume.pdf"
               download="Lucas-Lotze-Resume.pdf"
-              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group"
+              className="flex items-center gap-2 px-5 py-2 text-gray-700 dark:text-gray-300 bg-zinc-50 dark:bg-zinc-800/30 rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none group contact-btn-mobile"
               target="_blank"
               rel="noopener noreferrer"
             >
               <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Download Resume
+              <span className="contact-btn-label">Download Resume</span>
             </a>
+            {/* Socials: visually move closer for <=440px only via CSS */}
           </div>
         </div>
         {/* Socials */}
-        <div className={`flex flex-col items-center md:items-end md:justify-center gap-4 md:ml-10 mt-10 md:mt-0 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'}`} style={{ transitionDelay: '0.15s' }}>
+        <div className={`flex flex-col items-center md:items-end md:justify-center gap-4 md:ml-10 mt-10 md:mt-0 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'} socials-hero`}
+          style={{ transitionDelay: '0.15s' }}>
           <div className="flex flex-row gap-5 justify-center">
             <a
               href="https://github.com/llotze"
@@ -118,6 +120,27 @@ export default function Hero() {
           to {
             opacity: 1;
             transform: translateX(0);
+          }
+        }
+        @media (max-width: 440px) {
+          .hero-btn-row {
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            row-gap: 0.2rem;
+            justify-content: flex-start;
+          }
+          .contact-btn-mobile {
+            font-size: 0.82rem !important;
+            padding: 0.32rem 0.7rem !important;
+            min-width: 0;
+            max-width: 100vw;
+          }
+          .contact-btn-label {
+            white-space: nowrap;
+            font-size: 0.92em;
+          }
+          .socials-hero {
+            margin-top: 0.7rem !important;
           }
         }
       `}</style>
