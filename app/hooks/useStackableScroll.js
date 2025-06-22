@@ -12,7 +12,7 @@ export const useStackableScroll = () => {
   const smoothScrollTo = useCallback((targetPosition) => {
     const startPosition = window.pageYOffset
     const distance = targetPosition - startPosition
-    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.8
+    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.7
     
     let startTime = null
 
@@ -168,7 +168,11 @@ export const useStackableScroll = () => {
       targetScroll = Math.max(apertureTop - 100, targetScroll)
       targetScroll = Math.max(0, targetScroll)
 
-      smoothScrollTo(targetScroll)
+      if (window.innerHeight <= 956 && 'scrollBehavior' in document.documentElement.style) {
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      } else {
+        smoothScrollTo(targetScroll);
+      }
     }, 250) // Wait for expansion animation to complete
   }, [smoothScrollTo])
 

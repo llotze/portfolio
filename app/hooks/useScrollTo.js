@@ -11,10 +11,9 @@ export const useScrollTo = () => {
     // For short screens, increase offset so header isn't covered by sidebar
     let adjustedOffset = offset
     if (window.innerHeight <= 956 && (sectionId === 'contact' || sectionId === 'get-in-touch')) {
-      adjustedOffset = offset + 32 // or set to a value like 52 if you want a fixed offset
+      adjustedOffset = offset + 32
     }
 
-    // Check if we're already at this section and close to it
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
     const currentScroll = window.pageYOffset
     const targetPosition = elementPosition - adjustedOffset
@@ -26,14 +25,17 @@ export const useScrollTo = () => {
 
     lastScrolledSection.current = sectionId
 
-    // Calculate the target scroll position with offset
-    const targetScrollPosition = elementPosition - adjustedOffset
+    // Use native smooth scroll for mobile/short screens if available
+    if (window.innerHeight <= 956 && 'scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' })
+      return
+    }
 
-    // Use requestAnimationFrame for smooth, custom animation
+    // Custom animation for desktop/large screens
     const startPosition = window.pageYOffset
-    const distance = targetScrollPosition - startPosition
-    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.8 // Adaptive duration
-    
+    const distance = targetPosition - startPosition
+    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.7 // Adaptive duration
+
     let startTime = null
 
     const easeInOutCubic = (t) => {
