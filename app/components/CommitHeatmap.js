@@ -45,7 +45,7 @@ export default function CommitHeatmap() {
     '2025-06-18': 3,
     '2025-06-19': 2, // css improvements + sidebar work
     '2025-06-20': 6, // sidebar revamp + logo/spacing
-    '2025-06-21': 1 // End date, no commits
+    '2025-06-21': 8 // End date, no commits
   }
 
   // Create calendar grid (May 16 - June 20)

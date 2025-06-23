@@ -68,32 +68,42 @@ export default function Projects() {
     {
       icon: <Database className="w-7 h-7" />,
       title: "Multi-Tenant Architecture",
-      description: "Secure tenant isolation with role-based access control and scalable database design."
+      description: "Secure tenant isolation with role-based access control and a scalable database design for enterprise-grade reliability."
     },
     {
       icon: <DollarSign className="w-7 h-7" />,
       title: "Stripe Integration",
-      description: "Automated billing, payment processing, and late fee management with full transaction tracking."
+      description: "Automated billing, payment processing, and late fee management with full transaction tracking and reporting."
     },
     {
       icon: <FileText className="w-7 h-7" />,
       title: "DocuSign API",
-      description: "Digital document workflows with automated signature collection and status tracking."
+      description: "Digital document workflows with automated signature collection, status tracking, and secure file storage."
     },
     {
       icon: <Users className="w-7 h-7" />,
       title: "Property Management",
-      description: "Comprehensive lease tracking, tenant management, and property portfolio analytics."
+      description: "Comprehensive lease tracking, tenant management, and property portfolio analytics for owners and managers."
     },
     {
       icon: <Shield className="w-7 h-7" />,
       title: "Enterprise Security",
-      description: "Session management, audit logging, and secure file storage with Supabase integration."
+      description: "Session management, audit logging, and secure file storage using Supabase integration and best practices."
     },
     {
       icon: <Calendar className="w-7 h-7" />,
       title: "Automation System",
-      description: "Email notifications, billing automation, and real-time communication features."
+      description: "Automated email notifications, billing cycles, and real-time communication to reduce manual effort by over 60%."
+    },
+    {
+      icon: <Settings className="w-7 h-7" />,
+      title: "Dynamic Responsiveness",
+      description: "Custom layouts and controls for every screen size, with adaptive dashboards, forms, and navigation for mobile and desktop."
+    },
+    {
+      icon: <Code className="w-7 h-7" />,
+      title: "Custom Components & UI Consistency",
+      description: "Reusable, accessible UI components and consistent styling across all pages for a seamless, professional user experience."
     }
   ]
 
@@ -157,7 +167,7 @@ export default function Projects() {
                   <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                     <span> May 22 - June 18, 2025</span>
                     <span>⏱ 285+ Hours</span>
-                    <span>470+ Commits</span>
+                    <span>475+ Commits</span>
                     <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
                       Private Repository
                     </span>
@@ -193,8 +203,8 @@ export default function Projects() {
                     <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-6">
                       Built a comprehensive multi-tenant SaaS platform from concept to production in under 30 days. 
                       AperturePM streamlines property management through automation, featuring secure tenant portals, 
-                      automated billing systems, and digital document workflows. Currently serving real clients with 
-                      90% reduction in manual processing time.
+                      automated billing systems, and digital document workflows. Currently serving real clients with over 
+                      60% reduction in manual processing time.
                     </p>
 
                     {/* Demo Credentials */}
