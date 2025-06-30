@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="portfolio/favicon.ico" />
+        <link rel="icon" href="/portfolio/favicon.ico" />
         {/* Or use PNG/SVG: */}
         {/* <link rel="icon" type="image/png" href="/favicon.png" /> */}
       </head>
