@@ -12,6 +12,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        {/* Or use PNG/SVG: */}
+        {/* <link rel="icon" type="image/png" href="/favicon.png" /> */}
+      </head>
       <body className={inter.className + ' font-sans'} style={{ fontFamily: 'Inter, Montserrat, sans-serif' }}>{children}</body>
     </html>
   )
