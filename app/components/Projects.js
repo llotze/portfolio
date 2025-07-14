@@ -4,6 +4,7 @@ import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, 
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useStackableScroll } from '../hooks/useStackableScroll'
 import CommitHeatmap from './CommitHeatmap'
+import CommitHeatmap2 from './CommitHeatmap2'
 import GreenBenchmarksLogo from './GreenBenchmarksLogo';
 
 export default function Projects() {
@@ -95,8 +96,43 @@ export default function Projects() {
           section === 'greenbenchmarks-technical' ||
           section === 'greenbenchmarks-features'
         ) {
+          // --- DESKTOP LOGIC: Only runs if not mobile ---
+          if (window.innerHeight > 956) {
+            const isTechnicalOnly =
+              (section === 'greenbenchmarks-technical' && isExpanding && !newState['greenbenchmarks-features']) ||
+              (section === 'greenbenchmarks-features' && !isExpanding && newState['greenbenchmarks-technical'] && prev['greenbenchmarks-features']);
+
+            if (isTechnicalOnly) {
+              setExpandedSections(newState);
+              setTimeout(() => {
+                scrollToSection('greenbenchmarks-card', -145);
+              }, 200);
+            } else {
+              handleSectionToggle(
+                section,
+                isExpanding,
+                newState,
+                () => {}
+              );
+            }
+
+            if (
+              !isExpanding &&
+              !newState['greenbenchmarks-technical'] &&
+              !newState['greenbenchmarks-features']
+            ) {
+              setTimeout(() => {
+                scrollToSection('greenbenchmarks-card', 25);
+              }, 100);
+            }
+            return newState;
+          }
+
+          // --- MOBILE LOGIC: Only runs if mobile ---
+          // (leave your existing mobile logic here, unchanged)
           setExpandedSections(newState);
           setTimeout(() => {
+            // ...your current mobile scroll logic for greenbenchmarks-technical/features...
             if (window.innerHeight <= 956) {
               // Special case: collapsing technical, features remains open
               if (
@@ -115,7 +151,7 @@ export default function Projects() {
                   const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
                   window.scrollTo({ top: targetY, behavior: 'smooth' });
                 }
-                return; // Prevents further scrolls
+                return;
               }
 
               // Technical subsection scroll (special case for mobile)
@@ -147,35 +183,28 @@ export default function Projects() {
                 }
                 return;
               }
-            } else {
-              // Desktop: use custom smooth scroll
-              scrollToSection('greenbenchmarks-card', -145);
             }
           }, 200);
 
-          // Only scroll back to greenbenchmarks card if BOTH subsections are now closed
+          // Only scroll back to greenbenchmarks card if BOTH subsections are now closed (MOBILE)
           if (
+            window.innerHeight <= 956 &&
             !isExpanding &&
             !newState['greenbenchmarks-technical'] &&
             !newState['greenbenchmarks-features']
           ) {
             setTimeout(() => {
-              if (window.innerHeight <= 956) {
-                // Mobile: scroll so bottom of card is 20px above viewport bottom
-                requestAnimationFrame(() => {
-                  const card = document.getElementById('greenbenchmarks-card');
-                  if (card) {
-                    const rect = card.getBoundingClientRect();
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const padding = 30;
-                    const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
-                    window.scrollTo({ top: targetY, behavior: 'smooth' });
-                  }
-                });
-              } else {
-                scrollToSection('greenbenchmarks-card', 25);
-              }
-            }, 200); // Slightly longer to ensure DOM/layout is settled
+              requestAnimationFrame(() => {
+                const card = document.getElementById('greenbenchmarks-card');
+                if (card) {
+                  const rect = card.getBoundingClientRect();
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const padding = 30;
+                  const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                  window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+              });
+            }, 200);
           }
         }
         // --- All other sections (including aperturepm) ---
@@ -609,7 +638,7 @@ export default function Projects() {
                         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">MVP Development</div>
                       </div>
                       {/* Development Activity Graph */}
-                      <CommitHeatmap/>
+                      <CommitHeatmap2/>
                     </div>
                   </div>
                 </div>
