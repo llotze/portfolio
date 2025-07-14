@@ -58,11 +58,12 @@ export default function Projects() {
         if (section === 'greenbenchmarks') {
           if (isExpanding) {
             if (window.innerHeight <= 956) {
+              // Expansion: scroll card to top (just below topbar)
               const element = document.getElementById('greenbenchmarks-card');
               if (element) {
                 const rect = element.getBoundingClientRect();
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const offset = 86;
+                const offset = 86; // adjust to match your topbar height
                 const targetY = rect.top + scrollTop - offset;
                 window.scrollTo({ top: targetY, behavior: 'smooth' });
               }
@@ -70,7 +71,23 @@ export default function Projects() {
               scrollToSection('greenbenchmarks-card', 25);
             }
           } else {
-            scrollToSection('projects-collapse', 20);
+            if (window.innerHeight <= 956) {
+              // Collapse: scroll so bottom of card is at bottom of viewport
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                  const element = document.getElementById('greenbenchmarks-card');
+                  if (element) {
+                    const rect = element.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const padding = 10; // 10px gap from bottom
+                    const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                  }
+                });
+              }, 150); // Slightly longer to ensure DOM/layout is settled
+            } else {
+              scrollToSection('projects-collapse', 20);
+            }
           }
         }
         // --- GreenBenchmarks sub-sections stackable scroll logic ---
@@ -78,35 +95,87 @@ export default function Projects() {
           section === 'greenbenchmarks-technical' ||
           section === 'greenbenchmarks-features'
         ) {
+          setExpandedSections(newState);
+          setTimeout(() => {
+            if (window.innerHeight <= 956) {
+              // Special case: collapsing technical, features remains open
+              if (
+                section === 'greenbenchmarks-technical' &&
+                !isExpanding &&
+                prev['greenbenchmarks-technical'] &&
+                prev['greenbenchmarks-features'] &&
+                newState['greenbenchmarks-features'] &&
+                !newState['greenbenchmarks-technical']
+              ) {
+                const featuresElement = document.getElementById('greenbenchmarks-features-section');
+                if (featuresElement) {
+                  const rect = featuresElement.getBoundingClientRect();
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const padding = 40; // match your features padding
+                  const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                  window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+                return; // Prevents further scrolls
+              }
 
-          const isTechnicalOnly =
-            (section === 'greenbenchmarks-technical' && isExpanding && !newState['greenbenchmarks-features']) ||
+              // Technical subsection scroll (special case for mobile)
+              if (section === 'greenbenchmarks-technical') {
+                const element = document.getElementById('greenbenchmarks-technical-section');
+                const card = document.getElementById('greenbenchmarks-card');
+                if (element && card) {
+                  const elemRect = element.getBoundingClientRect();
+                  const cardRect = card.getBoundingClientRect();
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const padding = 110;
+                  let targetY = elemRect.bottom + scrollTop - window.innerHeight + padding;
+                  const cardTopY = cardRect.top + scrollTop - 16;
+                  if (targetY < cardTopY) targetY = cardTopY;
+                  window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+                return;
+              }
 
-            (section === 'greenbenchmarks-features' && !isExpanding && newState['greenbenchmarks-technical'] && prev['greenbenchmarks-features']);
+              // Features subsection scroll (mobile)
+              if (section === 'greenbenchmarks-features') {
+                const element = document.getElementById('greenbenchmarks-features-section');
+                if (element) {
+                  const rect = element.getBoundingClientRect();
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const padding = 40;
+                  const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                  window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+                return;
+              }
+            } else {
+              // Desktop: use custom smooth scroll
+              scrollToSection('greenbenchmarks-card', -145);
+            }
+          }, 200);
 
-          if (isTechnicalOnly) {
-            setExpandedSections(newState);
-            setTimeout(() => {
-              scrollToSection('greenbenchmarks-card', -145); 
-            }, 200);
-          } else {
-
-            handleSectionToggle(
-              section,
-              isExpanding,
-              newState,
-              () => {}
-            );
-          }
-
+          // Only scroll back to greenbenchmarks card if BOTH subsections are now closed
           if (
             !isExpanding &&
             !newState['greenbenchmarks-technical'] &&
             !newState['greenbenchmarks-features']
           ) {
             setTimeout(() => {
-              scrollToSection('greenbenchmarks-card', 25);
-            }, 100);
+              if (window.innerHeight <= 956) {
+                // Mobile: scroll so bottom of card is 20px above viewport bottom
+                requestAnimationFrame(() => {
+                  const card = document.getElementById('greenbenchmarks-card');
+                  if (card) {
+                    const rect = card.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const padding = 30;
+                    const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                  }
+                });
+              } else {
+                scrollToSection('greenbenchmarks-card', 25);
+              }
+            }, 200); // Slightly longer to ensure DOM/layout is settled
           }
         }
         // --- All other sections (including aperturepm) ---
