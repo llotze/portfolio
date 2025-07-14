@@ -4,10 +4,45 @@ import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, 
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useStackableScroll } from '../hooks/useStackableScroll'
 import CommitHeatmap from './CommitHeatmap'
+import GreenBenchmarksLogo from './GreenBenchmarksLogo';
 
 export default function Projects() {
-  const [expandedSections, setExpandedSections] = useState({})
-  const [isProjectExpanded, setIsProjectExpanded] = useState(true)
+  // 1. Always initialize to {} for SSR/SSG
+  const [expandedSections, setExpandedSections] = useState({});
+
+  // 2. Hydrate from sessionStorage on client only
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('expandedSections');
+      if (saved) setExpandedSections(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  // 3. Save to sessionStorage on change
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('expandedSections', JSON.stringify(expandedSections));
+    } catch {}
+  }, [expandedSections]);
+
+  // 1. Always initialize to false for SSR/SSG
+  const [isProjectExpanded, setIsProjectExpanded] = useState(false);
+
+  // 2. Hydrate from sessionStorage on client only
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('isProjectExpanded');
+      if (saved !== null) setIsProjectExpanded(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  // 3. Save to sessionStorage on change
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('isProjectExpanded', JSON.stringify(isProjectExpanded));
+    } catch {}
+  }, [isProjectExpanded]);
+
   const { scrollToSection, setLastScrolled } = useScrollTo()
   const { handleSectionToggle } = useStackableScroll()
   
@@ -19,20 +54,67 @@ export default function Projects() {
         [section]: isExpanding
       };
       setTimeout(() => {
-        if (isExpanding && window.innerHeight <= 956) {
-          const sectionEl = document.querySelector(`[data-section="${section}"]`);
-          if (sectionEl) {
-            const rect = sectionEl.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const offset = 86; // Adjust this value as needed
-            const targetY = rect.top + scrollTop - offset;
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
+        // --- GreenBenchmarks main section scroll logic ---
+        if (section === 'greenbenchmarks') {
+          if (isExpanding) {
+            if (window.innerHeight <= 956) {
+              const element = document.getElementById('greenbenchmarks-card');
+              if (element) {
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const offset = 86;
+                const targetY = rect.top + scrollTop - offset;
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+              }
+            } else {
+              scrollToSection('greenbenchmarks-card', 25);
+            }
+          } else {
+            scrollToSection('projects-collapse', 20);
           }
-        } else {
+        }
+        // --- GreenBenchmarks sub-sections stackable scroll logic ---
+        else if (
+          section === 'greenbenchmarks-technical' ||
+          section === 'greenbenchmarks-features'
+        ) {
+
+          const isTechnicalOnly =
+            (section === 'greenbenchmarks-technical' && isExpanding && !newState['greenbenchmarks-features']) ||
+
+            (section === 'greenbenchmarks-features' && !isExpanding && newState['greenbenchmarks-technical'] && prev['greenbenchmarks-features']);
+
+          if (isTechnicalOnly) {
+            setExpandedSections(newState);
+            setTimeout(() => {
+              scrollToSection('greenbenchmarks-card', -145); 
+            }, 200);
+          } else {
+
+            handleSectionToggle(
+              section,
+              isExpanding,
+              newState,
+              () => {}
+            );
+          }
+
+          if (
+            !isExpanding &&
+            !newState['greenbenchmarks-technical'] &&
+            !newState['greenbenchmarks-features']
+          ) {
+            setTimeout(() => {
+              scrollToSection('greenbenchmarks-card', 25);
+            }, 100);
+          }
+        }
+        // --- All other sections (including aperturepm) ---
+        else {
           const scrollToAperturePM = () => scrollToSection('aperturepm-card', 25)
           handleSectionToggle(section, newState[section], newState, scrollToAperturePM)
         }
-      }, 1); // Slightly longer to ensure DOM update
+      }, 100); 
       return newState;
     })
   }
@@ -43,7 +125,7 @@ export default function Projects() {
 
     setTimeout(() => {
       if (newExpandedState) {
-        // For small heights, use a larger offset so the title isn't covered
+
         if (window.innerHeight <= 956) {
           const element = document.getElementById('aperturepm-card');
           if (element) {
@@ -58,7 +140,7 @@ export default function Projects() {
           scrollToSection('aperturepm-card', 25)
         }
       } else {
-        // When collapsing, scroll to the separate collapse anchor (not projects)
+
         scrollToSection('projects-collapse', 20)
       }
     }, 100)
@@ -126,7 +208,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="min-h-screen py-20 flex flex-col justify-center">
-      {/* Invisible anchor for collapse scroll - positioned exactly like projects */}
+      {/* Invisible anchor for collapse - positioned exactly like projects */}
       <div id="projects-collapse" className="absolute" style={{ top: '-20px' }}></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -401,14 +483,145 @@ export default function Projects() {
             )}
           </div>
 
-          {/* Future Projects */}
-          <div className={`text-center transition-opacity duration-500 ${isProjectExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-            <div className="card dark:!border-0 p-8">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-3">More Projects Coming Soon</h4>
-              <p className="text-gray-700 dark:text-gray-200 max-w-md mx-auto">
-                AperturePM is my first major full-stack project. I'm actively working on new ideas and will add more projects here as I continue building my portfolio.
-              </p>
+          {/* GreenBenchmarks Main Card */}
+          <div className="card p-8" id="greenbenchmarks-card">
+            {/* Clickable Header */}
+            <div
+              onClick={() => toggleSection('greenbenchmarks')}
+              className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors rounded-lg p-4 -m-4 mb-4 relative"
+            >
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-3">
+                    <GreenBenchmarksLogo className="h-11" />
+                    <div className="flex items-center gap-1 -ml-1">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-yellow-600 dark:text-yellow-400">In Progress</span>
+                    </div>
+                  </div>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                    Sustainability Dashboard & Climate Impact SaaS
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <span>July 9, 2025 – Present</span>
+                    <span>Internship Project</span>
+                    <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
+                      Private Repository
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="p-2">
+                    {expandedSections.greenbenchmarks ?
+                      <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                      <ChevronDown className="w-5 h-5 text-gray-500" />
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Expandable Content */}
+            {expandedSections.greenbenchmarks && (
+              <div className="space-y-8">
+                {/* Overview */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Description */}
+                  <div className="lg:col-span-2">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-6">
+                      Designing and developing a web-based dashboard to help organizations communicate their climate impact and sustainability metrics. greenBenchmarks® enables companies to generate tokenized links and QR codes for sharing emissions performance, and supports transparent climate disclosures for clients and investors.
+                    </p>
+                  </div>
+                  {/* Key Stats */}
+                  <div className="lg:col-span-1 flex flex-col justify-center">
+                    <div className="space-y-6">
+                      <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
+                        <div className="text-4xl font-medium text-gray-900 dark:text-white mb-2">In Progress</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">MVP Development</div>
+                      </div>
+                      {/* Development Activity Graph */}
+                      <CommitHeatmap/>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Technology Stack */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Technology Stack</h4>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Node.js", ].map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Expandable Sections */}
+                <div className="space-y-4">
+                  {/* Technical Deep Dive */}
+                  <div className="bg-zinc-50 dark:bg-zinc-800/30 rounded-lg" id="greenbenchmarks-technical-section" data-section="greenbenchmarks-technical">
+                    <button
+                      onClick={() => toggleSection('greenbenchmarks-technical')}
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Code className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        <span className="font-semibold text-gray-900 dark:text-white">Technical Architecture & Development</span>
+                      </div>
+                      {expandedSections['greenbenchmarks-technical'] ?
+                        <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                        <ChevronRight className="w-5 h-5 text-gray-500" />
+                      }
+                    </button>
+                    {expandedSections['greenbenchmarks-technical'] && (
+                      <div className="px-4 pb-4 pt-4 space-y-4">
+                        <p className="text-gray-700 dark:text-gray-200">
+                          Built with a modern React/Next.js stack, focusing on modular, scalable code and a seamless user experience. The dashboard integrates sustainability data from internal APIs and supports secure, tokenized sharing of climate metrics.
+                        </p>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                          <li>Next.js 15 App Router</li>
+                          <li>React 19 with Server Components</li>
+                          <li>TypeScript for type safety</li>
+                          <li>Tailwind CSS for rapid UI development</li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Features Deep Dive */}
+                  <div className="bg-zinc-50 dark:bg-zinc-800/30 rounded-lg" id="greenbenchmarks-features-section" data-section="greenbenchmarks-features">
+                    <button
+                      onClick={() => toggleSection('greenbenchmarks-features')}
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Settings className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        <span className="font-semibold text-gray-900 dark:text-white">Core Features & Integrations</span>
+                      </div>
+                      {expandedSections['greenbenchmarks-features'] ?
+                        <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                        <ChevronRight className="w-5 h-5 text-gray-500" />
+                      }
+                    </button>
+                    {expandedSections['greenbenchmarks-features'] && (
+                      <div className="px-4 pb-4 pt-4">
+                        <ul className="space-y-2 text-gray-700 dark:text-gray-200 text-sm">
+                          <li>Tokenized links and QR codes for sharing emissions data</li>
+                          <li>Multi-role dashboards for clients, investors, and regulators</li>
+                          <li>Visual, shareable sustainability reports</li>
+                          <li>Accessibility and responsive design for all devices</li>
+                          <li>Planned: Predictive analytics and benchmarking tools</li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ export const useScrollTo = () => {
     // Custom animation for desktop/large screens
     const startPosition = window.pageYOffset
     const distance = targetPosition - startPosition
-    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.7 // Adaptive duration
+    const duration = Math.abs(distance) > 1000 ? 1000 : Math.abs(distance) * 0.5 // Adaptive duration
 
     let startTime = null
 

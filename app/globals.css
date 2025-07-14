@@ -93,3 +93,98 @@ section[id] {
     transform: translateY(0);
   }
 }
+
+/* --- GreenBenchmarks Logo Fonts & Styles --- */
+@font-face {
+  font-family: 'Nexa Light';
+  src: url('/fonts/Nexa-Light.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Nexa Bold';
+  src: url('/fonts/Nexa-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gazpacho Black';
+  src: url('/fonts/Gazpacho-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Aleo';
+  src: url('/fonts/Aleo-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Aleo';
+  src: url('/fonts/Aleo-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.greenbenchmarks-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+}
+.greenbenchmarks-logo-main {
+  display: flex;
+  align-items: baseline;
+}
+.greenbenchmarks-logo-green {
+  font-family: 'Nexa Light', Arial, sans-serif;
+  font-size: 1.6rem;
+  color: #07B151;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.greenbenchmarks-logo-benchmarks {
+  font-family: 'Gazpacho Black', Arial Black, serif;
+  font-size: 1.6rem;
+  color: #07B151;
+  font-weight: 900;
+  margin-left: 0.05em;
+  letter-spacing: 0.01em;
+}
+.greenbenchmarks-logo-byline {
+  display: flex;
+  align-items: baseline;
+  margin-top: 0.2em;
+}
+.greenbenchmarks-logo-by {
+  font-family: 'Nexa Light', Arial, sans-serif;
+  font-size: 0.8rem;
+  color: #07B151;
+  font-weight: 400;
+  margin-right: 0.2em;
+}
+.greenbenchmarks-logo-by-green {
+  font-family: 'Nexa Light', Arial, sans-serif;
+  font-size: 0.8rem;
+  color: #07B151;
+  font-weight: 400;
+}
+.greenbenchmarks-logo-by-cloud {
+  font-family: 'Nexa Bold', Arial Black, serif;
+  font-size: 0.8rem;
+  color: #07B151;
+  font-weight: 900;
+  margin-left: 0.05em;
+}
