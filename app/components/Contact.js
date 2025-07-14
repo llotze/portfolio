@@ -174,8 +174,8 @@ export default function Contact() {
                 {/* Status Section */}
                 <div className="border-t border-zinc-200 dark:border-zinc-600 pt-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">Available for Work</span>
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-yellow-600 dark:text-yellow-400 font-medium">Working</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 space-y-1">
                     <div>Software Engineering Internships</div>
