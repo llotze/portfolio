@@ -149,14 +149,14 @@ section[id] {
   align-items: baseline;
 }
 .greenbenchmarks-logo-green {
-  font-family: 'Nexa Light', Arial, sans-serif;
+  font-family: 'Nexa Light', Arial, sans-serif !important;
   font-size: 1.6rem;
   color: #07B151;
   font-weight: 400;
   letter-spacing: 0.01em;
 }
 .greenbenchmarks-logo-benchmarks {
-  font-family: 'Gazpacho Black', Arial Black, serif;
+  font-family: 'Gazpacho Black', Arial Black, serif !important;
   font-size: 1.6rem;
   color: #07B151;
   font-weight: 900;
@@ -169,20 +169,20 @@ section[id] {
   margin-top: 0.2em;
 }
 .greenbenchmarks-logo-by {
-  font-family: 'Nexa Light', Arial, sans-serif;
+  font-family: 'Nexa Light', Arial, sans-serif !important;
   font-size: 0.8rem;
   color: #07B151;
   font-weight: 400;
   margin-right: 0.2em;
 }
 .greenbenchmarks-logo-by-green {
-  font-family: 'Nexa Light', Arial, sans-serif;
+  font-family: 'Nexa Light', Arial, sans-serif !important;
   font-size: 0.8rem;
   color: #07B151;
   font-weight: 400;
 }
 .greenbenchmarks-logo-by-cloud {
-  font-family: 'Nexa Bold', Arial Black, serif;
+  font-family: 'Nexa Bold', Arial Black, serif !important;
   font-size: 0.8rem;
   color: #07B151;
   font-weight: 900;
