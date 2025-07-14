@@ -627,7 +627,7 @@ export default function Projects() {
                   {/* Description */}
                   <div className="lg:col-span-2">
                     <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-6">
-                      Designing and developing a web-based dashboard to help organizations communicate their climate impact and sustainability metrics. greenBenchmarks® enables companies to generate tokenized links and QR codes for sharing emissions performance, and supports transparent climate disclosures for clients and investors.
+                      Designing and developing a web-based dashboard to help organizations communicate their climate impact and sustainability metrics. I’m building the entire GreenBenchmarks® platform full stack, writing all the code for the user-facing onboarding, QR code generation, and emissions sharing features myself. (The only team collaboration is on the GreenCloud DB integration; all other functionality is my own work.) GreenBenchmarks® enables companies to generate tokenized links and QR codes for sharing emissions performance, and supports transparent climate disclosures for clients and investors.
                     </p>
                   </div>
                   {/* Key Stats */}
