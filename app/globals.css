@@ -97,19 +97,19 @@ section[id] {
 /* --- GreenBenchmarks Logo Fonts & Styles --- */
 @font-face {
   font-family: 'Nexa Light';
-  src: url('/fonts/Nexa-Light.woff2') format('woff2');
+  src: url('/portfolio/fonts/Nexa-Light.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: 'Nexa Bold';
-  src: url('/fonts/Nexa-Bold.woff2') format('woff2');
+  src: url('/portfolio/fonts/Nexa-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'Gazpacho Black';
-  src: url('/fonts/Gazpacho-Black.woff2') format('woff2');
+  src: url('/portfolio/fonts/Gazpacho-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
 }
