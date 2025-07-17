@@ -48,7 +48,7 @@ export default function Hero() {
   }}
 >
   AperturePM
-</span>, a multi-tenant property management platform serving real clients. Passionate about modern web development, automation, and delivering real value through technology.
+</span>, a multi-tenant property management platform serving real clients. Specialized in modern web development, interested in automation and delivering real value through technology.
           </p>          <div className={`flex gap-4 mt-2 transition-opacity duration-500 ${showBtns ? 'opacity-100 animate-fade-in-left' : 'opacity-0'} hero-btn-row`}
             style={{ transitionDelay: '0.15s' }}>
             <button

@@ -61,7 +61,7 @@ export default function About() {
           <div className="lg:col-span-2 space-y-6">
             <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
               I'm a motivated Computer Science student at Boston University with hands-on experience 
-              building and deploying SaaS applications. As a quick learner and full-stack developer with an eye for design, I'm passionate about web development, 
+              building and deploying SaaS applications. As a quick learner and full-stack developer with an eye for design, I'm specialized in web development, with interests in 
               cybersecurity, and AI.
             </p>
             
