@@ -145,7 +145,7 @@ export default function CommitHeatmap() {
               week.map((day, dayIndex) => (
                 <div
                   key={`${weekIndex}-${dayIndex}`}
-                  className={`w-3 h-3 rounded-sm cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-green-400 hover:ring-opacity-50 ${
+                  className={`w-3 h-3 rounded-xs cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-green-400 hover:ring-opacity-50 ${
                     getCommitColor(getCommitLevel(day.commits), day.isInRange)
                   }`}
                   onMouseEnter={(e) => setHoveredDay({
@@ -175,7 +175,7 @@ export default function CommitHeatmap() {
             {[0, 1, 2, 3, 4].map(level => (
               <div
                 key={level}
-                className={`w-2.5 h-2.5 rounded-sm ${getCommitColor(level, true)}`}
+                className={`w-2.5 h-2.5 rounded-xs ${getCommitColor(level, true)}`}
               />
             ))}
           </div>
