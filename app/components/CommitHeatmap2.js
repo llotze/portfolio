@@ -12,11 +12,11 @@ export default function CommitHeatmap2() {
     '2025-07-11': 6,
     '2025-07-12': 25,
     '2025-07-13': 14,
-    '2025-07-14': 0,
-    '2025-07-15': 0,
-    '2025-07-16': 0,
-    '2025-07-17': 0,
-    '2025-07-18': 0,
+    '2025-07-14': 3,
+    '2025-07-15': 1,
+    '2025-07-16': 5,
+    '2025-07-17': 8,
+    '2025-07-18': 1,
     '2025-07-19': 0,
     '2025-07-20': 0,
     '2025-07-21': 0,
@@ -98,18 +98,16 @@ export default function CommitHeatmap2() {
     return 4
   }
 
-  const getCommitColor = (level, isInRange) => {
-    // Use the same dimmer color for all 0 commit days (both in and out of range)
-    if (level === 0) return 'bg-zinc-100 dark:bg-zinc-800'
+    const getCommitColor = (level, isInRange) => {
+     if (level === 0) return 'bg-zinc-100 dark:bg-zinc-800 border border-[#f1f1f2] dark:border-[#252529]'
     
-    // Only show colors for in-range days with commits
-    if (!isInRange) return 'bg-zinc-100 dark:bg-zinc-700'
+    if (!isInRange) return 'bg-[#ebedf0] dark:bg-[#161b22] border border-[#e8eaed] dark:border-[#14191f]'
     
     const colors = {
-      1: 'bg-green-200 dark:bg-green-900',
-      2: 'bg-green-300 dark:bg-green-800',
-      3: 'bg-green-400 dark:bg-green-700',
-      4: 'bg-green-500 dark:bg-green-600'
+      1: 'bg-[#9be9a8] dark:bg-[#0e4429] border border-[#95e5a3] dark:border-[#0c3f26]', // light green
+      2: 'bg-[#40c463] dark:bg-[#006d32] border border-[#3cbf5e] dark:border-[#00652f]', // medium green
+      3: 'bg-[#30a14e] dark:bg-[#26a641] border border-[#2e9e4b] dark:border-[#24a03f]', // dark green
+      4: 'bg-[#216e39] dark:bg-[#39d353] border border-[#206a37] dark:border-[#37ce50]'  // darkest green
     }
     return colors[level]
   }

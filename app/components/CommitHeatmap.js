@@ -25,7 +25,7 @@ export default function CommitHeatmap() {
     '2025-05-31': 34, // Request functionality
     
     // June 2025
-    '2025-06-01': 44, // Loading improvements & CSS fixes (biggest day!)
+    '2025-06-01': 44, // Loading improvements & CSS fixes 
     '2025-06-02': 29, // CSS changes
     '2025-06-03': 21,
     '2025-06-04': 24,
@@ -50,8 +50,8 @@ export default function CommitHeatmap() {
 
   // Create calendar grid (May 16 - June 20)
   const createCalendarData = () => {
-    const startDate = new Date('2025-05-11T12:00:00-04:00') // EST with time
-    const endDate = new Date('2025-06-21T12:00:00-04:00')   // Now includes June 20
+    const startDate = new Date('2025-05-11T12:00:00-04:00') 
+    const endDate = new Date('2025-06-21T12:00:00-04:00')   
     const weeks = []
     let currentWeek = []
     
@@ -101,17 +101,17 @@ export default function CommitHeatmap() {
   }
 
   const getCommitColor = (level, isInRange) => {
-    // Use the same dimmer color for all 0 commit days (both in and out of range)
-    if (level === 0) return 'bg-zinc-100 dark:bg-zinc-800'
+    // Use zinc background with subtle hex borders for 0 commit days
+     if (level === 0) return 'bg-zinc-100 dark:bg-zinc-800 border border-[#f1f1f2] dark:border-[#252529]'
     
     // Only show colors for in-range days with commits
-    if (!isInRange) return 'bg-zinc-100 dark:bg-zinc-700'
+    if (!isInRange) return 'bg-[#ebedf0] dark:bg-[#161b22] border border-[#e8eaed] dark:border-[#14191f]'
     
     const colors = {
-      1: 'bg-green-200 dark:bg-green-900',
-      2: 'bg-green-300 dark:bg-green-800',
-      3: 'bg-green-400 dark:bg-green-700',
-      4: 'bg-green-500 dark:bg-green-600'
+      1: 'bg-[#9be9a8] dark:bg-[#0e4429] border border-[#95e5a3] dark:border-[#0c3f26]', // light green
+      2: 'bg-[#40c463] dark:bg-[#006d32] border border-[#3cbf5e] dark:border-[#00652f]', // medium green
+      3: 'bg-[#30a14e] dark:bg-[#26a641] border border-[#2e9e4b] dark:border-[#24a03f]', // dark green
+      4: 'bg-[#216e39] dark:bg-[#39d353] border border-[#206a37] dark:border-[#37ce50]'  // darkest green
     }
     return colors[level]
   }
