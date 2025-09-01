@@ -593,15 +593,15 @@ export default function Projects() {
                   <div className="flex items-center gap-4 mb-3">
                     <GreenBenchmarksLogo className="h-11" />
                     <div className="flex items-center gap-1 -ml-1">
-                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-yellow-600 dark:text-yellow-400">In Progress</span>
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-green-600 dark:text-green-400">Complete</span>
                     </div>
                   </div>
                   <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                     Sustainability Dashboard & Climate Impact SaaS
                   </p>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                    <span>July 9, 2025 – Present</span>
+                    <span>July 9, 2025 – August 31, 2025</span>
                     <span>Internship Project</span>
                     <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
                       Private Repository
@@ -627,14 +627,14 @@ export default function Projects() {
                   {/* Description */}
                   <div className="lg:col-span-2">
                     <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-6">
-                      Designing and developing a web-based dashboard to help organizations communicate their climate impact and sustainability metrics. I’m building the entire GreenBenchmarks® platform full stack, writing all the code for the user-facing onboarding, QRT link generation, and emissions sharing features myself. (The only team collaboration is on the GreenCloud DB integration; all other functionality is my own work.) GreenBenchmarks® enables companies to generate tokenized links and QR codes for sharing emissions performance, and supports transparent climate disclosures for clients and users.
+                      Designing and developing a web-based dashboard to help organizations communicate their climate impact and sustainability metrics. I’m building the entire GreenBenchmarks® platform full stack, writing all the code for the user-facing onboarding, QRT link generation, and emissions sharing features myself. (The only team collaboration is on the GreenCloud DB integration; all other functionality is my own work.) GreenBenchmarks® enables companies to generate tokenized links for sharing emissions performance, and supports transparent climate disclosures for clients and users.
                     </p>
                   </div>
                   {/* Key Stats */}
                   <div className="lg:col-span-1 flex flex-col justify-center">
                     <div className="space-y-6">
                       <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
-                        <div className="text-4xl font-medium text-gray-900 dark:text-white mb-2">In Progress</div>
+                        <div className="text-4xl font-medium text-gray-900 dark:text-white mb-2">Complete</div>
                         <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">MVP Development</div>
                       </div>
                       {/* Development Activity Graph */}
@@ -708,7 +708,7 @@ export default function Projects() {
                     {expandedSections['greenbenchmarks-features'] && (
                       <div className="px-4 pb-4 pt-4">
                         <ul className="space-y-2 text-gray-700 dark:text-gray-200 text-sm">
-                          <li>Tokenized links and QR codes for sharing emissions data</li>
+                          <li>Tokenized links for sharing emissions data</li>
                           <li>Multi-role dashboards for clients, investors, and regulators</li>
                           <li>Visual, shareable sustainability reports</li>
                           <li>Accessibility and responsive design for all devices</li>
