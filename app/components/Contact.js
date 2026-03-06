@@ -13,6 +13,10 @@ export default function Contact() {
   const [error, setError] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
 
+  // Display copyright as a start-year → current-year range
+  const startYear = 2025
+  const currentYear = new Date().getFullYear()
+  const yearDisplay = startYear === currentYear ? `${currentYear}` : `${startYear}–${currentYear}`
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -328,7 +332,7 @@ export default function Contact() {
         {/* Footer */}
         <div className="text-center mt-6 pt-4 border-t border-zinc-200 dark:border-zinc-700">
           <p className="text-gray-700 dark:text-gray-300">
-            © 2025 Lucas Lotze. All rights reserved.
+            © {yearDisplay} Lucas Lotze. All rights reserved.
           </p>
         </div>
       </div>
