@@ -1,10 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, ChevronDown, ChevronRight, Code, Lightbulb, Settings } from 'lucide-react'
+import { ExternalLink, Calendar, Users, DollarSign, FileText, Database, Shield, ChevronDown, ChevronRight, Code, Lightbulb, Settings, MessageSquare, Zap, RotateCcw, Search, Layers } from 'lucide-react'
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useStackableScroll } from '../hooks/useStackableScroll'
 import CommitHeatmap from './CommitHeatmap'
 import CommitHeatmap2 from './CommitHeatmap2'
+import CommitHeatmap3 from './CommitHeatmap3'
 import GreenBenchmarksLogo from './GreenBenchmarksLogo';
 
 export default function Projects() {
@@ -207,6 +208,103 @@ export default function Projects() {
             }, 200);
           }
         }
+        // --- Graceful AI main section scroll logic ---
+        else if (section === 'gracefulai') {
+          if (isExpanding) {
+            if (window.innerHeight <= 956) {
+              const element = document.getElementById('gracefulai-card');
+              if (element) {
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const offset = 86;
+                const targetY = rect.top + scrollTop - offset;
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+              }
+            } else {
+              scrollToSection('gracefulai-card', 25);
+            }
+          } else {
+            if (window.innerHeight <= 956) {
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                  const element = document.getElementById('gracefulai-card');
+                  if (element) {
+                    const rect = element.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const padding = 10;
+                    const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                    window.scrollTo({ top: targetY, behavior: 'smooth' });
+                  }
+                });
+              }, 150);
+            } else {
+              scrollToSection('projects-collapse', 20);
+            }
+          }
+        }
+        // --- Graceful AI sub-sections scroll logic ---
+        else if (
+          section === 'gracefulai-technical' ||
+          section === 'gracefulai-features' ||
+          section === 'gracefulai-lessons'
+        ) {
+          if (window.innerHeight > 956) {
+            handleSectionToggle(section, isExpanding, newState, () => {});
+            const allCollapsed = !newState['gracefulai-technical'] && !newState['gracefulai-features'] && !newState['gracefulai-lessons'];
+            if (!isExpanding && allCollapsed) {
+              setTimeout(() => {
+                scrollToSection('gracefulai-card', 25);
+              }, 100);
+            }
+            return newState;
+          }
+          // Mobile logic
+          setExpandedSections(newState);
+          setTimeout(() => {
+            if (window.innerHeight <= 956) {
+              const sectionIds = {
+                'gracefulai-technical': 'gracefulai-technical-section',
+                'gracefulai-features': 'gracefulai-features-section',
+                'gracefulai-lessons': 'gracefulai-lessons-section',
+              };
+              const elementId = sectionIds[section];
+              const element = document.getElementById(elementId);
+              const card = document.getElementById('gracefulai-card');
+              if (element && card) {
+                const elemRect = element.getBoundingClientRect();
+                const cardRect = card.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const padding = section === 'gracefulai-technical' ? 110 : 40;
+                let targetY = elemRect.bottom + scrollTop - window.innerHeight + padding;
+                if (section === 'gracefulai-technical') {
+                  const cardTopY = cardRect.top + scrollTop - 16;
+                  if (targetY < cardTopY) targetY = cardTopY;
+                }
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+              }
+            }
+          }, 200);
+          if (
+            window.innerHeight <= 956 &&
+            !isExpanding &&
+            !newState['gracefulai-technical'] &&
+            !newState['gracefulai-features'] &&
+            !newState['gracefulai-lessons']
+          ) {
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                const card = document.getElementById('gracefulai-card');
+                if (card) {
+                  const rect = card.getBoundingClientRect();
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const padding = 30;
+                  const targetY = rect.bottom + scrollTop - window.innerHeight + padding;
+                  window.scrollTo({ top: targetY, behavior: 'smooth' });
+                }
+              });
+            }, 200);
+          }
+        }
         // --- All other sections (including aperturepm) ---
         else {
           const scrollToAperturePM = () => scrollToSection('aperturepm-card', 25)
@@ -293,6 +391,39 @@ export default function Projects() {
     "Railway", "Nodemailer", "NextAuth"
   ]
 
+  const gracefulaiFeatures = [
+    {
+      icon: <MessageSquare className="w-7 h-7" />,
+      title: "Hopper AI Assistant",
+      description: "Claude-powered conversational interface for natural language flow building — describe what you want, Hopper builds or edits the flow."
+    },
+    {
+      icon: <Layers className="w-7 h-7" />,
+      title: "Differential Flow Updates",
+      description: "FlowDiffEngine applies targeted add/update/remove operations atomically with rollback on failure, never replacing the entire flow."
+    },
+    {
+      icon: <Zap className="w-7 h-7" />,
+      title: "Real-Time SSE Sync",
+      description: "Server-Sent Events push live flow canvas updates to connected frontends, keeping the visual builder in sync with every mutation."
+    },
+    {
+      icon: <Database className="w-7 h-7" />,
+      title: "Bulk Operations",
+      description: "Multi-node and edge operations processed 80–90% faster than individual requests, with auto-layout (horizontal, vertical, grid)."
+    },
+    {
+      icon: <RotateCcw className="w-7 h-7" />,
+      title: "Undo / Redo System",
+      description: "Complete per-flow history tracking with jump-to-point capability — no change is irreversible."
+    },
+    {
+      icon: <Search className="w-7 h-7" />,
+      title: "Component Discovery",
+      description: "Search and explore 100+ Langflow components with keyword search, type validation, and smart handle auto-generation."
+    }
+  ]
+
   useEffect(() => {
     function handleExpandAperturePM() {
       setIsProjectExpanded(true)
@@ -304,6 +435,17 @@ export default function Projects() {
     return () => window.removeEventListener('expand-aperturepm', handleExpandAperturePM)
   }, [scrollToSection])
 
+  useEffect(() => {
+    function handleExpandGracefulAI() {
+      setExpandedSections(prev => ({ ...prev, gracefulai: true }))
+      setTimeout(() => {
+        scrollToSection('gracefulai-card', 25)
+      }, 100)
+    }
+    window.addEventListener('expand-gracefulai', handleExpandGracefulAI)
+    return () => window.removeEventListener('expand-gracefulai', handleExpandGracefulAI)
+  }, [scrollToSection])
+
   return (
     <section id="projects" className="min-h-screen py-20 flex flex-col justify-center">
       {/* Invisible anchor for collapse - positioned exactly like projects */}
@@ -313,7 +455,7 @@ export default function Projects() {
         <div className="text-center mb-12 border-b border-zinc-200 dark:border-zinc-700 pb-8">
           <h2 className="text-4xl mb-4 accent">Projects</h2>
           <p className="text-xl max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            My main focus: AperturePM — a production SaaS platform built from concept to deployment in 28 days.
+            Production-grade projects spanning SaaS, sustainability, and AI-powered tooling
           </p>
         </div>
         
@@ -714,6 +856,223 @@ export default function Projects() {
                           <li>Accessibility and responsive design for all devices</li>
                           <li>Planned: Predictive analytics and benchmarking tools</li>
                         </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Graceful AI Main Card */}
+          <div className="card p-8" id="gracefulai-card">
+            {/* Clickable Header */}
+            <div
+              onClick={() => toggleSection('gracefulai')}
+              className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors rounded-lg p-4 -m-4 mb-4 relative"
+            >
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-3">
+                    <img
+                      src="/portfolio/graceful-logo.png"
+                      alt="Graceful AI Logo"
+                      className="h-18 object-contain"
+                      style={{ flexShrink: 0 }}
+                      draggable={false}
+                    />
+                    <div className="flex items-center gap-1 -ml-1">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-green-600 dark:text-green-400">Complete</span>
+                    </div>
+                  </div>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">AI-Powered Flow Builder & MCP Server</p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <span>Fall 2025</span>
+                    <span>Team Project</span>
+                    <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200">
+                      Spark! Innovation Course
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <a
+                    href="https://github.com/llotze/langflow-mcp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-2 px-6 py-3 text-gray-800 dark:text-white bg-transparent rounded-md transition-all hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none whitespace-nowrap group"
+                  >
+                    <ExternalLink size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    View Repository
+                  </a>
+                  <div className="p-2">
+                    {expandedSections.gracefulai ?
+                      <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                      <ChevronDown className="w-5 h-5 text-gray-500" />
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Expandable Content */}
+            {expandedSections.gracefulai && (
+              <div className="space-y-8">
+                {/* Overview */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Description */}
+                  <div className="lg:col-span-2">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-6">
+                      Built during Boston University's Spark! Innovation course, Graceful AI is a Claude-powered MCP server that connects natural language to Langflow's visual flow builder. Hopper, the custom AI assistant, creates and edits agentic flows through conversational prompts, backed by a custom REST API with per-user auth. The server implements a TypeScript FlowDiffEngine for atomic differential updates, real-time SSE sync, undo/redo history, and 100+ component discovery — all previously deployed on Railway.
+                    </p>
+                  </div>
+                  {/* Key Stats */}
+                  <div className="lg:col-span-1 flex flex-col justify-center">
+                    <div className="space-y-6">
+                      <div className="text-center p-6 bg-zinc-50 dark:bg-zinc-800/30 rounded-lg">
+                        <div className="text-4xl font-medium text-gray-900 dark:text-white mb-2">Complete</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Spark! Innovation Course</div>
+                      </div>
+                      {/* Development Activity Graph */}
+                      <CommitHeatmap3 />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Technology Stack */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Technology Stack</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["TypeScript", "Express.js", "Node.js", "Anthropic Claude API", "MCP SDK", "Railway", "SSE"].map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs text-gray-700 dark:text-gray-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Expandable Sections */}
+                <div className="space-y-4">
+                  {/* Technical Deep Dive */}
+                  <div className="bg-zinc-50 dark:bg-zinc-800/30 rounded-lg" id="gracefulai-technical-section" data-section="gracefulai-technical">
+                    <button
+                      onClick={() => toggleSection('gracefulai-technical')}
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Code className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                        <span className="font-semibold text-gray-900 dark:text-white">Technical Architecture & Development</span>
+                      </div>
+                      {expandedSections['gracefulai-technical'] ?
+                        <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                        <ChevronRight className="w-5 h-5 text-gray-500" />
+                      }
+                    </button>
+                    {expandedSections['gracefulai-technical'] && (
+                      <div className="px-4 pb-4 pt-4 space-y-4">
+                        <p className="text-gray-700 dark:text-gray-200">
+                          A TypeScript backend with two runtime modes: an HTTP/REST server (Express) for production use and an MCP stdio server for Claude Desktop integration. Core services are shared between both modes.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <h5 className="font-medium text-gray-900 dark:text-white mb-2">Server & Transport</h5>
+                            <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                              <li>Express HTTP server with REST endpoints</li>
+                              <li>Server-Sent Events (SSE) for real-time sync</li>
+                              <li>Per-user auth via x-api-key header</li>
+                              <li>MCP stdio server for Claude Desktop</li>
+                              <li>Deployed on Railway with public domain</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <h5 className="font-medium text-gray-900 dark:text-white mb-2">Core Services</h5>
+                            <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                              <li>FlowDiffEngine — atomic operation processor</li>
+                              <li>FlowValidator — structure &amp; param validation</li>
+                              <li>FlowHistory — undo/redo state manager</li>
+                              <li>LangflowApiService — Langflow API client</li>
+                              <li>Hopper AI — Claude Sonnet multi-turn agent</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Features Deep Dive */}
+                  <div className="bg-zinc-50 dark:bg-zinc-800/30 rounded-lg" id="gracefulai-features-section" data-section="gracefulai-features">
+                    <button
+                      onClick={() => toggleSection('gracefulai-features')}
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Settings className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                        <span className="font-semibold text-gray-900 dark:text-white">Core Features & Integrations</span>
+                      </div>
+                      {expandedSections['gracefulai-features'] ?
+                        <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                        <ChevronRight className="w-5 h-5 text-gray-500" />
+                      }
+                    </button>
+                    {expandedSections['gracefulai-features'] && (
+                      <div className="px-4 pb-4 pt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4">
+                          {gracefulaiFeatures.map((feature, index) => (
+                            <div key={index} className="flex items-start gap-3 p-4 bg-white dark:bg-zinc-700/50 rounded-lg">
+                              <div className="flex-shrink-0 mt-1 text-cyan-600 dark:text-cyan-400">
+                                {feature.icon}
+                              </div>
+                              <div>
+                                <h5 className="font-medium text-gray-900 dark:text-white mb-1">{feature.title}</h5>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Lessons Learned */}
+                  <div className="bg-zinc-50 dark:bg-zinc-800/30 rounded-lg" id="gracefulai-lessons-section" data-section="gracefulai-lessons">
+                    <button
+                      onClick={() => toggleSection('gracefulai-lessons')}
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Lightbulb className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                        <span className="font-semibold text-gray-900 dark:text-white">Key Learnings & Challenges</span>
+                      </div>
+                      {expandedSections['gracefulai-lessons'] ?
+                        <ChevronDown className="w-5 h-5 text-gray-500 rotate-180" /> :
+                        <ChevronRight className="w-5 h-5 text-gray-500" />
+                      }
+                    </button>
+                    {expandedSections['gracefulai-lessons'] && (
+                      <div className="px-4 pb-4 pt-4 space-y-4">
+                        <div>
+                          <h5 className="font-medium text-gray-900 dark:text-white mb-3">Technical Challenges Overcome</h5>
+                          <ul className="space-y-2 text-gray-700 dark:text-gray-200 text-sm">
+                            <li><strong>MCP protocol design:</strong> Modeling Langflow's complex component and handle structures as typed MCP tool schemas</li>
+                            <li><strong>Differential updates:</strong> Designing a conflict-free operation system where partial failures roll back atomically without corrupting flow state</li>
+                            <li><strong>Per-user auth:</strong> Forwarding each user's Langflow API key through the server without storing credentials, maintaining zero shared-state auth</li>
+                            <li><strong>Real-time SSE:</strong> Keeping multiple frontend clients in sync with flow mutations triggered by both AI and manual edits simultaneously</li>
+                            <li><strong>Component modeling:</strong> Reverse-engineering Langflow's 100+ component structures and handle types into a queryable TypeScript catalog</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-gray-900 dark:text-white mb-3">Key Takeaways</h5>
+                          <ul className="space-y-2 text-gray-700 dark:text-gray-200 text-sm">
+                            <li>API-first design produces cleaner tool-calling schemas and makes AI integration far more reliable</li>
+                            <li>Atomic rollback in FlowDiffEngine prevents compounding errors that would corrupt user flows</li>
+                            <li>Per-user key forwarding scales better than shared credentials and eliminates cross-user data leakage</li>
+                            <li>Differential updates require precise conflict resolution — replacing entire objects is safer than partial merges under concurrency</li>
+                          </ul>
+                        </div>
                       </div>
                     )}
                   </div>
